@@ -21,10 +21,7 @@ export default function MainNav() {
 
 				<Stack.Screen name='Зарегистрироваться' component={RegScreen} />
 				<Stack.Screen name='SetCode' component={SetCodeScreen} />
-				<Stack.Screen
-					name='CodeAndProductPagesNav'
-					component={CodeAndProductPagesNav}
-				/>
+				<Stack.Screen name='Code' component={CodeAndProductPagesNav} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
