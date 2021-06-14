@@ -17,7 +17,7 @@ const Button = (props, { navigation }) => {
 			}}
 		>
 			<Text
-				onPress={() => props.nav.navigate("Login")}
+				onPress={() => props.nav.navigate(props.text)}
 				style={{
 					fontSize: 22,
 					color: "#ffffff",

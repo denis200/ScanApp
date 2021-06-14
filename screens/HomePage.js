@@ -31,7 +31,7 @@ export default function HomeScreen({ navigation }) {
 						или
 					</Text>
 					<View>
-						<Button text='Зарегистрироваться' />
+						<Button nav={navigation} text='Зарегистрироваться' />
 					</View>
 				</View>
 			</ImageBackground>
