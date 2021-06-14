@@ -16,7 +16,7 @@ export default function MainNav() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Вход" component={LoginScreen} />
 
-        <View>лол кек чебурек</View>
+        <View>не вафли</View>
 
         <Stack.Screen name="Зарегистрироваться" component={RegScreen} />
         <Stack.Screen name="SetCode" component={SetCodeScreen} />
