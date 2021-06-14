@@ -5,6 +5,7 @@ import HomeScreen from "./../screens/HomePage";
 import LoginScreen from "../screens/LoginPage";
 import RegScreen from "../screens/RegPage";
 import SetCodeScreen from "../screens/SetCodePage";
+import CodeAndProductPagesNav from "./CodeAndProductPagesNav";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,10 @@ export default function MainNav() {
 				<Stack.Screen name='Вход' component={LoginScreen} />
 				<Stack.Screen name='Зарегистрироваться' component={RegScreen} />
 				<Stack.Screen name='SetCode' component={SetCodeScreen} />
+				<Stack.Screen
+					name='CodeAndProductPagesNav'
+					component={CodeAndProductPagesNav}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
