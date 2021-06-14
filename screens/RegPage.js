@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, CheckBox, TouchableOpacity } from 'react-native';
+import { isEmailValid, isPasswordValid } from '../src/Validation/Valid';
 
 export default function RegScreen({ navigation }) {
   return (
