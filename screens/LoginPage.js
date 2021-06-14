@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
         style={styles.inputLogin}
       />
       <Input
-        placeholder="Пароль"
+        placeholder="Ваш Пароль"
         maxLength={25}
         autoCorrect={false}
         errorStyle={{ marginHorizontal: 34 }}
