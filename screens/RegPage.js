@@ -60,14 +60,7 @@ export default function RegScreen({ navigation }) {
 				autoCorrect={false}
 				style={styles.input}
 			></TextInput>
-			<View
-				style={{ flexDirection: "row", marginLeft: 25, marginTop: 30 }}
-			>
-				<CheckBox></CheckBox>
-				<Text style={{ fontSize: 16 }}>
-					Даю согласие на обработку персональных данных
-				</Text>
-			</View>
+
 			<TouchableOpacity
 				onPress={() => {
 					navigation.navigate("SetCode");
