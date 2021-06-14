@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
             ) : (
               <Text>
                 Пароль должен быть не короче 8 символов и содержать строчную и заглавную буквы и
-                цифру
+                цифру.
               </Text>
             )
           ) : (
