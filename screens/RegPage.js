@@ -1,71 +1,143 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, CheckBox, TouchableOpacity } from 'react-native';
-import { isEmailValid, isPasswordValid } from '../src/Validation/Valid';
+import { View, Text, StyleSheet, CheckBox, TouchableOpacity } from 'react-native';
+import { isPasswordValid } from '../src/Validation/Valid';
+import { Input, Button } from 'react-native-elements';
+import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegScreen({ navigation }) {
+  const [inputName, setInputName] = useState('');
+  const [inputPassword1, setinputPassword1] = useState('');
+  const [inputPassword2, setinputPassword2] = useState('');
+  const [inputPhoneNumber, setInputPhoneNumber] = useState('');
+
+  const [Test, setTest] = useState('');
+
   return (
-    <View>
+    <View style={{ display: 'flex', flexDirection: 'column' }}>
       <Text
         style={{
           textAlign: 'center',
-          marginTop: '15%',
+          marginTop: '35%',
           fontSize: 25,
           marginBottom: 20,
         }}>
         Регистрация
       </Text>
-      <TextInput
+      <Input
         placeholder="Имя"
         maxLength={29}
+        inputContainerStyle={{ borderBottomWidth: 0 }}
+        value={inputName}
         autoCorrect={false}
-        style={styles.input}></TextInput>
-      <TextInput
-        placeholder="Дата Рождения"
-        maxLength={32}
-        autoCorrect={false}
-        style={styles.input}></TextInput>
-      <TextInput
-        placeholder="Email"
-        maxLength={32}
-        autoCorrect={false}
-        style={styles.input}></TextInput>
-      <TextInput
-        placeholder="Телефон"
-        maxLength={32}
-        autoCorrect={false}
-        style={styles.input}></TextInput>
-      <TextInput
+        onChangeText={(name) => {
+          setInputName(name);
+        }}
+        errorStyle={{ marginHorizontal: 34 }}
+        error={inputName.length < 6 ? (inputName === '' ? false : true) : false}
+        errorMessage={
+          inputName.length < 6 ? (inputName === '' ? true : 'Укажите более 6 символов.') : true
+        }
+        style={styles.input}
+      />
+
+      <View>
+        <TextInputMask
+          placeholder="Номер телефона"
+          type={'cel-phone'}
+          options={{
+            maskType: 'Custom',
+            withDDD: true,
+            dddMask: '+7(***)-***-**-**',
+          }}
+          style={styles.inputNumber}
+          value={Test.international}
+          maxLength={17}
+          onChangeText={(text) => {
+            setTest({
+              international: text,
+            });
+          }}
+        />
+      </View>
+
+      <Input
         secureTextEntry={true}
         placeholder="Пароль"
+        inputContainerStyle={{ borderBottomWidth: 0 }}
         maxLength={30}
+        errorStyle={{ marginHorizontal: 34 }}
+        value={inputPassword1}
         autoCorrect={false}
-        style={styles.input}></TextInput>
-      <TextInput
+        onChangeText={(password1) => {
+          setinputPassword1(password1);
+        }}
+        error={isPasswordValid(inputPassword1) ? (inputPassword1 === '' ? false : true) : false}
+        errorMessage={
+          isPasswordValid(inputPassword1) ? (
+            inputPassword1 === '' ? (
+              false
+            ) : (
+              <Text>
+                Пароль должен быть не короче 8 символов и содержать строчную и заглавную буквы и
+                цифру.
+              </Text>
+            )
+          ) : (
+            false
+          )
+        }
+        style={styles.input}
+      />
+      <Input
         secureTextEntry={true}
         placeholder="Повторите пароль"
+        inputContainerStyle={{ borderBottomWidth: 0 }}
         maxLength={32}
-        autoCorrect={false}
-        style={styles.input}></TextInput>
-
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('SetCode');
+        value={inputPassword2}
+        errorStyle={{ marginHorizontal: 34 }}
+        onChangeText={(password2) => {
+          setinputPassword2(password2);
         }}
-        style={styles.buttonReg}>
-        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Зарегистрироваться</Text>
-      </TouchableOpacity>
+        autoCorrect={false}
+        error={inputPassword1 !== inputPassword2 && inputPassword2.length > 0}
+        errorMessage={
+          inputPassword1 !== inputPassword2 ? (
+            inputPassword2 !== '' ? (
+              <Text> Пароли не совпадают</Text>
+            ) : (
+              <Text> </Text>
+            )
+          ) : (
+            false
+          )
+        }
+        style={styles.input}
+      />
+
+      <View style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <Button
+          onPress={() => {
+            navigation.navigate('SetCode');
+          }}
+          disabled={
+            inputPassword1 !== inputPassword2 || inputName.length < 6 || inputPassword1.length < 1
+          }
+          buttonStyle={styles.buttonReg}
+          title="Зарегестрироваться"
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   buttonReg: {
-    marginTop: 80,
+    marginTop: 50,
     marginHorizontal: '23%',
-    borderRadius: 20,
+    borderRadius: 17,
+    padding: 10,
     backgroundColor: '#00a86b',
-    paddingVertical: 10,
   },
   input: {
     borderWidth: 2,
@@ -76,6 +148,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#e0e0e0',
     borderColor: '#e0e0e0',
     paddingHorizontal: 20,
+  },
+  inputNumber: {
+    borderWidth: 2,
+    borderRadius: 14,
+    height: 50,
+    fontSize: 20,
+    marginHorizontal: 30,
+    backgroundColor: '#e0e0e0',
+    borderColor: '#e0e0e0',
+    paddingHorizontal: 20,
     marginTop: 20,
+  },
+  inputNumber: {
+    borderWidth: 2,
+    borderRadius: 14,
+    height: 50,
+    fontSize: 20,
+    marginHorizontal: 39,
+    backgroundColor: '#e0e0e0',
+    borderColor: '#e0e0e0',
+    paddingHorizontal: 20,
+    marginTop: 0,
+    marginBottom: 20,
   },
 });
