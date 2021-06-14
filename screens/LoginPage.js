@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
         }}
         error={inputLogin.length < 6 ? (inputLogin === '' ? false : true) : false}
         errorMessage={
-          inputLogin.length < 6 ? (inputLogin === '' ? true : 'Укажите более 6 символов') : true
+          inputLogin.length < 6 ? (inputLogin === '' ? true : 'Укажите более 6 символов.') : true
         }
         style={styles.inputLogin}
       />
