@@ -49,7 +49,7 @@ export default function RegScreen({ navigation }) {
 			<TextInput
 				secureTextEntry={true}
 				placeholder='Пароль'
-				maxLength={32}
+				maxLength={30}
 				autoCorrect={false}
 				style={styles.input}
 			></TextInput>
