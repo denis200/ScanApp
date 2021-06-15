@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Input, Image, Switch } from 'react-native-elements';
+import { Button, Image } from 'react-native-elements';
 import { Avatar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -8,8 +8,8 @@ export default function ProfileScreen({ navigation }) {
   return (
     <View style={{ backgroundColor: '#fff', height: '100%' }}>
       <View style={{ marginTop: 40 }}>
-        <View style={{ flexDirection: 'row', marginHorizontal: 20 }}>
-          <View style={{ marginLeft: 20 }}>
+        <View style={{ flexDirection: 'row', marginHorizontal: 10 }}>
+          <View style={{ marginLeft: 10 }}>
             <Avatar
               size="large"
               rounded
@@ -24,7 +24,7 @@ export default function ProfileScreen({ navigation }) {
             />
           </View>
           <View>
-            <Text style={{ fontSize: 40, marginHorizontal: 30, marginTop: 10 }}>
+            <Text style={{ fontSize: 40, marginHorizontal: 20, marginTop: 10 }}>
               Denis <Ionicons name={'pencil-sharp'} size={25} color={'gray'} />
             </Text>
           </View>
@@ -35,18 +35,80 @@ export default function ProfileScreen({ navigation }) {
         <View>
           <AdvertisingAndPromotions />
         </View> */}
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Настройки');
-          }}
-          style={{ marginTop: 50 }}>
-          <Text style={{ textAlign: 'center', fontSize: 22 }}>Настройки</Text>
-        </TouchableOpacity>
-        <View>
-          <TouchableOpacity style={{ marginTop: 20 }}>
-            <Text style={{ color: '#FF0000', textAlign: 'center', fontSize: 22 }}>Выход</Text>
+        <View style={{ marginHorizontal: 30 }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Настройки');
+            }}
+            style={{ flexDirection: 'row', marginTop: 50 }}>
+            <Text style={{ fontSize: 30 }}>Настройки профиля</Text>
+            <Ionicons
+              style={{ marginHorizontal: '10%', paddingTop: 1 }}
+              name={'arrow-forward-circle-outline'}
+              size={35}
+              color={'gray'}
+            />
           </TouchableOpacity>
+          <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Адреса');
+            }}
+            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            <Text style={{ fontSize: 30, marginRight: '36%' }}>Наши адреса</Text>
+            <Ionicons
+              style={{ marginRight: 9 }}
+              name={'arrow-forward-circle-outline'}
+              size={35}
+              color={'gray'}
+            />
+          </TouchableOpacity>
+          <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Банковские карты');
+            }}
+            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            <Text style={{ fontSize: 30, marginRight: '17%' }}>Банковские карты</Text>
+            <Ionicons
+              style={{ marginRight: 9 }}
+              name={'arrow-forward-circle-outline'}
+              size={35}
+              color={'gray'}
+            />
+          </TouchableOpacity>
+          <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Связь с разработчкиком');
+            }}
+            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            <Text style={{ fontSize: 30, marginRight: '20%' }}>Связаться с нами</Text>
+            <Ionicons
+              style={{ marginRight: 9 }}
+              name={'arrow-forward-circle-outline'}
+              size={35}
+              color={'gray'}
+            />
+          </TouchableOpacity>
+          <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
+        </View>
+        <View>
+          <View style={{ marginTop: 80 }}>
+            <Button
+              lab
+              title="Выйти из аккаунта"
+              color="#FF0000"
+              style={{
+                marginHorizontal: '23%',
+                borderRadius: 17,
+                backgroundColor: '#00a86b',
+                color: '#FF0000',
+                textAlign: 'center',
+                fontSize: 22,
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
