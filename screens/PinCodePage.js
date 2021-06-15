@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { useState } from "react";
+
 import {
 	View,
 	Text,
@@ -10,9 +12,5 @@ import {
 } from "react-native";
 
 export default function PinCodeScreen({ navigation }) {
-	return (
-		<View>
-			<Text>Hello world</Text>
-		</View>
-	);
+	return <View></View>;
 }
