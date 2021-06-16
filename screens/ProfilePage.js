@@ -80,7 +80,7 @@ export default function ProfileScreen({ navigation }) {
           <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Связь с разработчкиком');
+              navigation.navigate('FeedBack');
             }}
             style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
             <Text style={{ fontSize: 30, marginRight: '20%' }}>Связаться с нами</Text>
