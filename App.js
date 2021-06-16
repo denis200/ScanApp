@@ -8,20 +8,74 @@ import { useState } from "react";
 import MainNav from "./navigators/MainNavigator";
 import BottomNavScreen from "./navigators/BottomNav";
 import { AuthContex } from "./components/contex";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
-	const [isLoading, setIsLoading] = useState(true);
-	const [token, setToken] = useState(null);
+	initialLoginState = {
+		isLoading: true,
+		userName: null,
+		userToken: null,
+	};
+
+	loginReducer = (prevState, action) => {
+		switch (action.type) {
+			case "RETRIEVE_TOKEN":
+				return {
+					...prevState,
+					userToken: action.token,
+					isLoading: false,
+				};
+			case "LOGIN":
+				return {
+					...prevState,
+					userName: action.id,
+					userToken: action.token,
+					isLoading: false,
+				};
+			case "LOGOUT":
+				return {
+					...prevState,
+					userName: null,
+					userToken: null,
+					isLoading: false,
+				};
+			case "REGISTER":
+				return {
+					...prevState,
+					userName: action.id,
+					userToken: action.token,
+					isLoading: false,
+				};
+		}
+	};
+
+	const [loginState, dispatch] = React.useReducer(
+		loginReducer,
+		initialLoginState
+	);
 
 	const authContex = React.useMemo(
 		() => ({
-			signIn: () => {
-				setToken("qwer");
-				setIsLoading(false);
+			signIn: async (userName, password) => {
+				let userToken;
+				userToken = null;
+				if (userName == "Dimon123456" && password == "Marinka228") {
+					userToken = "srfsr";
+					try {
+						await AsyncStorage.setItem("userToken", userToken);
+					} catch (e) {
+						// saving error
+					}
+				}
+				dispatch({ type: "LOGIN", id: userName, token: userToken });
 			},
-			signOut: () => {
-				setToken(null);
-				setIsLoading(false);
+			signOut: async () => {
+				try {
+					AsyncStorage.removeItem("userToken");
+				} catch (e) {
+					console.log(e);
+				}
+				dispatch({ type: "LOGOUT" });
 			},
 			signUp: () => {
 				setToken("qwer");
@@ -32,12 +86,19 @@ export default function App() {
 	);
 
 	React.useEffect(() => {
-		setTimeout(() => {
-			setIsLoading(false);
+		setTimeout(async () => {
+			let userToken;
+			userToken = null;
+			try {
+				userToken = await AsyncStorage.getItem("userToken");
+			} catch (e) {
+				alert(e);
+			}
+			dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
 		}, 1000);
 	}, []);
 
-	if (isLoading) {
+	if (loginState.isLoading) {
 		return (
 			<View
 				style={{
@@ -53,7 +114,11 @@ export default function App() {
 	return (
 		<AuthContex.Provider value={authContex}>
 			<NavigationContainer>
-				{token !== null ? <BottomNavScreen /> : <MainNav />}
+				{loginState.userToken !== null ? (
+					<BottomNavScreen />
+				) : (
+					<MainNav />
+				)}
 			</NavigationContainer>
 		</AuthContex.Provider>
 	);

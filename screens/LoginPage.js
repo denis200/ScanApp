@@ -87,7 +87,7 @@ export default function LoginScreen({ navigation }) {
 			>
 				<Button
 					onPress={() => {
-						signIn();
+						signIn(inputLogin, inputPassword);
 					}}
 					buttonStyle={styles.buttonAuth}
 					disabled={isPasswordValid(inputPassword) || inputLogin < 8}
