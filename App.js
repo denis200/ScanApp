@@ -65,8 +65,8 @@ export default function App() {
 						"Content-Type": "application/json;charset=utf-8",
 					},
 					body: JSON.stringify({
-						"UserName": "Denis_Dimaa",
-						"Password": "Admin12345_",
+						"UserName": userName,
+						"Password": password,
 					}),
 				})
 					.then(res => {

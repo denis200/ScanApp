@@ -1,23 +1,42 @@
-import * as React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Button, Image } from "react-native-elements";
-import { Avatar } from "react-native-elements";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { AuthContex } from "../components/contex";
+import * as React from "react"
+import {useState} from "react"
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native"
+import {Button, Image} from "react-native-elements"
+import {Avatar} from "react-native-elements"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import {AuthContex} from "../components/contex"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export default function ProfileScreen({ navigation }) {
-	const { signOut } = React.useContext(AuthContex);
+export default function ProfileScreen({navigation}) {
+	const {signOut} = React.useContext(AuthContex)
+	const [user, setUser] = useState()
+	const [leter, setLet] = useState("")
+	const [email, setEmail] = useState("")
+	const [name, setName] = useState("")
+
+	React.useEffect(() => {
+		AsyncStorage.getItem("user", (err, result) => {
+			if (result) {
+				setUser(result)
+			}
+		})
+
+		if (user) {
+			const USer = JSON.parse(user)
+			setName(USer.name)
+		}
+	}, [user])
 
 	return (
-		<View style={{ backgroundColor: "#fff", height: "100%" }}>
-			<View style={{ marginTop: 40 }}>
-				<View style={{ flexDirection: "row", marginHorizontal: 10 }}>
-					<View style={{ marginLeft: 10 }}>
+		<View style={{backgroundColor: "#fff", height: "100%"}}>
+			<View style={{marginTop: 40}}>
+				<View style={{flexDirection: "row", marginHorizontal: 10}}>
+					<View style={{marginLeft: 10}}>
 						<Avatar
-							size='large'
+							size="large"
 							rounded
-							title={"D"}
-							titleStyle={{ color: "#000" }}
+							title={name[0]}
+							titleStyle={{color: "#000"}}
 							onPress={() => console.log("Works!")}
 							activeOpacity={0.7}
 							avatarStyle={{
@@ -34,37 +53,32 @@ export default function ProfileScreen({ navigation }) {
 								marginTop: 10,
 							}}
 						>
-							Denis{" "}
-							<Ionicons
-								name={"pencil-sharp"}
-								size={25}
-								color={"gray"}
-							/>
+							{name}
 						</Text>
 					</View>
 				</View>
-				<View style={{ marginHorizontal: 30 }}>
+				<View style={{marginHorizontal: 30}}>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate("Настройки");
+							navigation.navigate("Настройки", {user: user})
 						}}
-						style={{ flexDirection: "row", marginTop: 50 }}
+						style={{flexDirection: "row", marginTop: 50}}
 					>
-						<Text style={{ fontSize: 30 }}>Настройки профиля</Text>
+						<Text style={{fontSize: 30}}>Настройки профиля</Text>
 						<Ionicons
-							style={{ marginHorizontal: "10%", paddingTop: 1 }}
+							style={{marginHorizontal: "10%", paddingTop: 1}}
 							name={"arrow-forward-circle-outline"}
 							size={35}
 							color={"gray"}
 						/>
 					</TouchableOpacity>
 					<Image
-						style={{ height: 3, width: "100%" }}
+						style={{height: 3, width: "100%"}}
 						source={require(".././src/stick.jpg")}
 					/>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate("Адреса");
+							navigation.navigate("Адреса")
 						}}
 						style={{
 							flexDirection: "row",
@@ -72,23 +86,23 @@ export default function ProfileScreen({ navigation }) {
 							justifyContent: "flex-end",
 						}}
 					>
-						<Text style={{ fontSize: 30, marginRight: "36%" }}>
+						<Text style={{fontSize: 30, marginRight: "36%"}}>
 							Наши адреса
 						</Text>
 						<Ionicons
-							style={{ marginRight: 9 }}
+							style={{marginRight: 9}}
 							name={"arrow-forward-circle-outline"}
 							size={35}
 							color={"gray"}
 						/>
 					</TouchableOpacity>
 					<Image
-						style={{ height: 3, width: "100%" }}
+						style={{height: 3, width: "100%"}}
 						source={require(".././src/stick.jpg")}
 					/>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate("Банковские карты");
+							navigation.navigate("Банковские карты")
 						}}
 						style={{
 							flexDirection: "row",
@@ -96,23 +110,23 @@ export default function ProfileScreen({ navigation }) {
 							justifyContent: "flex-end",
 						}}
 					>
-						<Text style={{ fontSize: 30, marginRight: "17%" }}>
+						<Text style={{fontSize: 30, marginRight: "17%"}}>
 							Банковские карты
 						</Text>
 						<Ionicons
-							style={{ marginRight: 9 }}
+							style={{marginRight: 9}}
 							name={"arrow-forward-circle-outline"}
 							size={35}
 							color={"gray"}
 						/>
 					</TouchableOpacity>
 					<Image
-						style={{ height: 3, width: "100%" }}
+						style={{height: 3, width: "100%"}}
 						source={require(".././src/stick.jpg")}
 					/>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate("Связь с разработчкиком");
+							navigation.navigate("Связь с разработчкиком")
 						}}
 						style={{
 							flexDirection: "row",
@@ -120,30 +134,30 @@ export default function ProfileScreen({ navigation }) {
 							justifyContent: "flex-end",
 						}}
 					>
-						<Text style={{ fontSize: 30, marginRight: "20%" }}>
+						<Text style={{fontSize: 30, marginRight: "20%"}}>
 							Связаться с нами
 						</Text>
 						<Ionicons
-							style={{ marginRight: 9 }}
+							style={{marginRight: 9}}
 							name={"arrow-forward-circle-outline"}
 							size={35}
 							color={"gray"}
 						/>
 					</TouchableOpacity>
 					<Image
-						style={{ height: 3, width: "100%" }}
+						style={{height: 3, width: "100%"}}
 						source={require(".././src/stick.jpg")}
 					/>
 				</View>
 				<View>
-					<View style={{ marginTop: 80 }}>
+					<View style={{marginTop: 80}}>
 						<Button
 							onPress={() => {
-								signOut();
+								signOut()
 							}}
 							lab
-							title='Выйти из аккаунта'
-							color='#FF0000'
+							title="Выйти из аккаунта"
+							color="#FF0000"
 							style={{
 								marginHorizontal: "23%",
 								borderRadius: 17,
@@ -157,7 +171,7 @@ export default function ProfileScreen({ navigation }) {
 				</View>
 			</View>
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -188,4 +202,4 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		marginTop: 10,
 	},
-});
+})
