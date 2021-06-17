@@ -6,8 +6,8 @@ import { isPasswordValid } from "../src/Validation/Valid";
 import { AuthContex } from "../components/contex";
 
 export default function LoginScreen({ navigation }) {
-	const [inputLogin, setInputLogin] = useState("Dimon123456");
-	const [inputPassword, setinputPassword] = useState("Marinka228");
+	const [inputLogin, setInputLogin] = useState("Denis_Dimaa");
+	const [inputPassword, setinputPassword] = useState("Admin12345_");
 	const { signIn } = React.useContext(AuthContex);
 
 	return (
