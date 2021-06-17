@@ -3,8 +3,13 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { Avatar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AuthContex } from '../components/contex';
+
+import { CustomText } from '../components/ui/CustomTetxt';
 
 export default function ProfileScreen({ navigation }) {
+  const { signOut } = React.useContext(AuthContex);
+
   return (
     <View style={{ backgroundColor: '#fff', height: '100%' }}>
       <View style={{ marginTop: 40 }}>
@@ -24,17 +29,16 @@ export default function ProfileScreen({ navigation }) {
             />
           </View>
           <View>
-            <Text style={{ fontSize: 40, marginHorizontal: 20, marginTop: 10 }}>
+            <Text
+              style={{
+                fontSize: 40,
+                marginHorizontal: 20,
+                marginTop: 10,
+              }}>
               Denis <Ionicons name={'pencil-sharp'} size={25} color={'gray'} />
             </Text>
           </View>
         </View>
-        {/* <View style={{ marginTop: 20 }}>
-          <PersonalUserData />
-        </View>
-        <View>
-          <AdvertisingAndPromotions />
-        </View> */}
         <View style={{ marginHorizontal: 30 }}>
           <TouchableOpacity
             onPress={() => {
@@ -54,7 +58,11 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => {
               navigation.navigate('Адреса');
             }}
-            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            style={{
+              flexDirection: 'row',
+              marginTop: 60,
+              justifyContent: 'flex-end',
+            }}>
             <Text style={{ fontSize: 30, marginRight: '36%' }}>Наши адреса</Text>
             <Ionicons
               style={{ marginRight: 9 }}
@@ -68,7 +76,11 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => {
               navigation.navigate('Банковские карты');
             }}
-            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            style={{
+              flexDirection: 'row',
+              marginTop: 60,
+              justifyContent: 'flex-end',
+            }}>
             <Text style={{ fontSize: 30, marginRight: '17%' }}>Банковские карты</Text>
             <Ionicons
               style={{ marginRight: 9 }}
@@ -82,7 +94,11 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => {
               navigation.navigate('FeedBack');
             }}
-            style={{ flexDirection: 'row', marginTop: 60, justifyContent: 'flex-end' }}>
+            style={{
+              flexDirection: 'row',
+              marginTop: 60,
+              justifyContent: 'flex-end',
+            }}>
             <Text style={{ fontSize: 30, marginRight: '20%' }}>Связаться с нами</Text>
             <Ionicons
               style={{ marginRight: 9 }}
@@ -96,6 +112,9 @@ export default function ProfileScreen({ navigation }) {
         <View>
           <View style={{ marginTop: 80 }}>
             <Button
+              onPress={() => {
+                signOut();
+              }}
               lab
               title="Выйти из аккаунта"
               color="#FF0000"

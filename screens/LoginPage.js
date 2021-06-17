@@ -3,10 +3,12 @@ import { useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { isPasswordValid } from '../src/Validation/Valid';
+import { AuthContex } from '../components/contex';
 
 export default function LoginScreen({ navigation }) {
   const [inputLogin, setInputLogin] = useState('Dimon123456');
   const [inputPassword, setinputPassword] = useState('Marinka228');
+  const { signIn } = React.useContext(AuthContex);
 
   return (
     <View>
@@ -63,7 +65,7 @@ export default function LoginScreen({ navigation }) {
         }}>
         <Button
           onPress={() => {
-            navigation.navigate('Code');
+            signIn(inputLogin, inputPassword);
           }}
           buttonStyle={styles.buttonAuth}
           disabled={isPasswordValid(inputPassword) || inputLogin < 8}
