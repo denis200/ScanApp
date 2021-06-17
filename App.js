@@ -133,6 +133,8 @@ export default function App() {
 			signOut: async () => {
 				try {
 					AsyncStorage.removeItem("userToken")
+					AsyncStorage.removeItem("user")
+					AsyncStorage.removeItem("id")
 				} catch (e) {
 					console.log(e)
 				}
