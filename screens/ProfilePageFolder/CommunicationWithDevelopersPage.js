@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 
@@ -13,9 +14,16 @@ const UselessTextInput = (props) => {
 };
 
 export default function CommunicationWithDevelopersScreen({ navigation }) {
+  const [TopicMessage, setTopicMessage] = useState('');
+  const [Message, setMessage] = useState('');
+
   return (
     <View style={{ marginTop: 60 }}>
       <Input
+        onChangeText={(text) => {
+          setTopicMessage(text);
+        }}
+        value={TopicMessage}
         label="Тема сообщения"
         labelStyle={{ marginHorizontal: 30 }}
         autoCorrect={false}
@@ -43,6 +51,7 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
         <View style={{ marginTop: 80 }}>
           <Button
             lab
+            disabled={TopicMessage.length < 3}
             title="Отправить письмо"
             color="#FF0000"
             style={{
