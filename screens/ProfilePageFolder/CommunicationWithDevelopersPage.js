@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UselessTextInput = (props) => {
   return (
@@ -14,6 +15,8 @@ const UselessTextInput = (props) => {
 };
 
 export default function CommunicationWithDevelopersScreen({ navigation }) {
+  const [User, setUser] = useState(null);
+
   const [TopicMessage, setTopicMessage] = useState('');
   const [Message, setMessage] = useState('');
 
@@ -38,7 +41,7 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
           fontWeight: '700',
           color: 'gray',
         }}>
-        Сообщение{' '}
+        Сообщение
       </Text>
       <UselessTextInput
         label="Сообщение"
@@ -46,7 +49,6 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
         labelStyle={{ marginHorizontal: 30 }}
         multiline
         numberOfLines={4}></UselessTextInput>
-
       <View>
         <View style={{ marginTop: 80 }}>
           <Button

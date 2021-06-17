@@ -1,14 +1,31 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { Avatar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContex } from '../components/contex';
-
-import { CustomText } from '../components/ui/CustomTetxt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen({ navigation }) {
   const { signOut } = React.useContext(AuthContex);
+  const [user, setUser] = useState();
+  const [leter, setLet] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  React.useEffect(() => {
+    AsyncStorage.getItem('user', (err, result) => {
+      if (result) {
+        setUser(result);
+      }
+    });
+
+    if (user) {
+      const USer = JSON.parse(user);
+      setName(USer.name);
+    }
+  }, [user]);
 
   return (
     <View style={{ backgroundColor: '#fff', height: '100%' }}>
@@ -18,7 +35,7 @@ export default function ProfileScreen({ navigation }) {
             <Avatar
               size="large"
               rounded
-              title={'D'}
+              title={name[0]}
               titleStyle={{ color: '#000' }}
               onPress={() => console.log('Works!')}
               activeOpacity={0.7}
@@ -35,14 +52,14 @@ export default function ProfileScreen({ navigation }) {
                 marginHorizontal: 20,
                 marginTop: 10,
               }}>
-              Denis <Ionicons name={'pencil-sharp'} size={25} color={'gray'} />
+              {name}
             </Text>
           </View>
         </View>
         <View style={{ marginHorizontal: 30 }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Настройки');
+              navigation.navigate('Настройки', { user: user });
             }}
             style={{ flexDirection: 'row', marginTop: 50 }}>
             <Text style={{ fontSize: 30 }}>Настройки профиля</Text>
