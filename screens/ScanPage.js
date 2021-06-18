@@ -208,7 +208,15 @@ export default function ScanScreen({route, navigation}) {
 							</View>
 							<View style={{height: 20}}></View>
 						</ScrollView>
-						<TouchableOpacity style={styles.addButton}>
+						<TouchableOpacity
+							onPress={() => {
+								navigation.navigate("Корзина", {
+									data: product,
+								}),
+									setVisible(false)
+							}}
+							style={styles.addButton}
+						>
 							<Text
 								style={{
 									textAlign: "center",
