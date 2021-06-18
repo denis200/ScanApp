@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react"
 import {
 	Text,
 	View,
@@ -8,38 +8,57 @@ import {
 	Modal,
 	Image,
 	ActivityIndicator,
-} from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { ScrollView } from "react-native-gesture-handler";
+} from "react-native"
+import {BarCodeScanner} from "expo-barcode-scanner"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import {ScrollView} from "react-native-gesture-handler"
 
-export default function ScanScreen({ route, navigation }) {
-	const [hasPermission, setHasPermission] = useState(null);
-	const [scanned, setScanned] = useState(false);
+export default function ScanScreen({route, navigation}) {
+	const [hasPermission, setHasPermission] = useState(null)
+	const [scanned, setScanned] = useState(false)
 	useEffect(() => {
-		(async () => {
-			const { status } = await BarCodeScanner.requestPermissionsAsync();
-			setHasPermission(status === "granted");
-		})();
-	}, []);
+		;(async () => {
+			const {status} = await BarCodeScanner.requestPermissionsAsync()
+			setHasPermission(status === "granted")
+		})()
+	}, [])
 
-	const handleBarCodeScanned = ({ type, data }) => {
-		setScanned(true);
-		//alert(`Ваш штрихкод: ${data}. Тип штрихкода - ${type}`);
-	};
+	const GetGoodInfo = barcode => {
+		fetch(`https://scanappbarcode.azurewebsites.net/GetProduct`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json;charset=utf-8",
+			},
+			body: JSON.stringify({
+				"UPCEAN": barcode,
+			}),
+		})
+			.then(response => {
+				return response.json()
+			})
+			.then(data => {
+				alert(JSON.stringify(data))
+			})
+	}
+
+	const handleBarCodeScanned = ({type, data}) => {
+		setScanned(true)
+		alert(`Ваш штрихкод: ${data}. Тип штрихкода - ${type}`)
+		GetGoodInfo(data)
+	}
 
 	if (hasPermission === null) {
-		return <Text>Запрос разрешения камеры</Text>;
+		return <Text>Запрос разрешения камеры</Text>
 	}
 	if (hasPermission === false) {
-		return <Text>Нет доступа к камере!</Text>;
+		return <Text>Нет доступа к камере!</Text>
 	}
 
 	return (
 		<View
 			style={styles.container}
 			backButton={() => {
-				setVisible(false);
+				setVisible(false)
 			}}
 		>
 			<BarCodeScanner
@@ -50,16 +69,16 @@ export default function ScanScreen({ route, navigation }) {
 				<TouchableOpacity
 					style={styles.againButton}
 					onPress={() => {
-						setScanned(false);
+						setScanned(false)
 					}}
 				>
-					<Text style={{ textAlign: "center", color: "#fff" }}>
+					<Text style={{textAlign: "center", color: "#fff"}}>
 						Нажмите,чтобы отсканировать снова
 					</Text>
 				</TouchableOpacity>
 			)}
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -110,4 +129,4 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 20,
 		backgroundColor: "#00aa00",
 	},
-});
+})
