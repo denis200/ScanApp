@@ -6,6 +6,7 @@ import { Avatar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContex } from '../components/contex';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/core';
 
 export default function ProfileScreen({ navigation }) {
   const { signOut } = React.useContext(AuthContex);
@@ -13,6 +14,8 @@ export default function ProfileScreen({ navigation }) {
   const [leter, setLet] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+
+  const isFocused = useIsFocused();
 
   React.useEffect(() => {
     AsyncStorage.getItem('user', (err, result) => {
@@ -25,7 +28,7 @@ export default function ProfileScreen({ navigation }) {
       const USer = JSON.parse(user);
       setName(USer.name);
     }
-  }, [user]);
+  }, [user, isFocused]);
 
   return (
     <View style={{ backgroundColor: '#fff', height: '100%' }}>
@@ -61,7 +64,7 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => {
               navigation.navigate('Настройки', { user: user });
             }}
-            style={{ flexDirection: 'row', marginTop: 50 }}>
+            style={{ flexDirection: 'row', marginTop: 50, marginTop: '20%' }}>
             <Text style={{ fontSize: 30 }}>Настройки профиля</Text>
             <Ionicons
               style={{ marginHorizontal: '10%', paddingTop: 1 }}
@@ -79,26 +82,9 @@ export default function ProfileScreen({ navigation }) {
               flexDirection: 'row',
               marginTop: 60,
               justifyContent: 'flex-end',
+              marginTop: '20%',
             }}>
             <Text style={{ fontSize: 30, marginRight: '36%' }}>Наши адреса</Text>
-            <Ionicons
-              style={{ marginRight: 9 }}
-              name={'arrow-forward-circle-outline'}
-              size={35}
-              color={'gray'}
-            />
-          </TouchableOpacity>
-          <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Банковские карты');
-            }}
-            style={{
-              flexDirection: 'row',
-              marginTop: 60,
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{ fontSize: 30, marginRight: '17%' }}>Банковские карты</Text>
             <Ionicons
               style={{ marginRight: 9 }}
               name={'arrow-forward-circle-outline'}
@@ -115,6 +101,7 @@ export default function ProfileScreen({ navigation }) {
               flexDirection: 'row',
               marginTop: 60,
               justifyContent: 'flex-end',
+              marginTop: '20%',
             }}>
             <Text style={{ fontSize: 30, marginRight: '20%' }}>Связаться с нами</Text>
             <Ionicons
@@ -127,7 +114,7 @@ export default function ProfileScreen({ navigation }) {
           <Image style={{ height: 3, width: '100%' }} source={require('.././src/stick.jpg')} />
         </View>
         <View>
-          <View style={{ marginTop: 80 }}>
+          <View style={{ marginTop: '40%' }}>
             <Button
               onPress={() => {
                 signOut();
