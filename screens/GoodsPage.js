@@ -24,13 +24,55 @@ export default function GoodsScreen({route, navigation}) {
 
 		if (isFind === undefined) {
 			setGoods(prev => [...prev, data])
+
 			setCount(count + 1)
-			setSum(sum + data.price)
+			setSum(sum + data.price * data.quantity)
+		} else {
+			goods.map(obj =>
+				obj.upcean === data.upcean
+					? addItem(
+							obj.quantity,
+							obj.upcean,
+							obj.price,
+							data.quantity
+					  )
+					: obj
+			)
 		}
 	}
+
+	const deleteItem = (code, price, quantity) => {
+		const arr = [...goods]
+		let delArr = arr.filter(item => item.upcean !== code)
+		setGoods(delArr)
+		setCount(count - 1)
+		setSum(sum - price * quantity)
+	}
+	const addItem = (quantity, code, price, actQuantity) => {
+		setSum(sum + price * actQuantity)
+		setGoods(
+			goods.map(obj =>
+				obj.upcean === code
+					? {...obj, quantity: quantity + actQuantity}
+					: obj
+			)
+		)
+	}
+	const delete1Item = (quantity, name, code, price) => {
+		setGoods(
+			goods.map(obj =>
+				obj.upcean === code ? {...obj, quantity: quantity - 1} : obj
+			)
+		)
+		if (quantity == 1) {
+			deleteItem(code, price, quantity)
+		}
+		setSum(sum - price)
+	}
+
 	React.useEffect(() => {
 		if (route.params?.data) {
-			alert(route.params?.data)
+			//alert(route.params?.data)
 			addGood(route.params?.data)
 		}
 	}, [route.params?.data])
@@ -46,7 +88,35 @@ export default function GoodsScreen({route, navigation}) {
 			<View style={{height: "55%"}}>
 				<ScrollView style={{marginTop: 20, marginHorizontal: 10}}>
 					{goods.map(good => {
-						return <Good key={good.upcean} product={good}></Good>
+						return (
+							<Good
+								key={good.upcean}
+								product={good}
+								handleAdd1={() =>
+									addItem(
+										good.quantity,
+										good.upcean,
+										good.price,
+										1
+									)
+								}
+								handle1Delete={() =>
+									delete1Item(
+										good.quantity,
+										good.name,
+										good.upcean,
+										good.price
+									)
+								}
+								handleDelete={() =>
+									deleteItem(
+										good.upcean,
+										good.price,
+										good.quantity
+									)
+								}
+							></Good>
+						)
 					})}
 				</ScrollView>
 			</View>

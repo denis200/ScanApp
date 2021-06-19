@@ -62,8 +62,7 @@ const Good = props => {
 								size={30}
 							></Ionicons>
 							<Text style={{fontSize: 18, marginTop: 3}}>
-								{" "}
-								1 шт{" "}
+								{props.product.quantity} шт
 							</Text>
 							<Ionicons
 								onPress={props.handleAdd1}
