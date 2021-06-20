@@ -32,6 +32,23 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
     });
   }, []);
 
+  const sendMessage = () => {
+    fetch(`https://scanappbarcode.azurewebsites.net/SendEmailForFeedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        Email: Email,
+        Theme: TopicMessage,
+        Message: Message,
+      }),
+    }).then((response) => {
+      if (response.status === 200) alert('Успешно отправлено');
+      else alert('Ошибка');
+    });
+  };
+
   return (
     <View style={{ marginTop: 60 }}>
       {User != null ? (
@@ -86,6 +103,7 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
               <Button
                 lab
                 disabled={TopicMessage.length < 3}
+                onPress={() => sendMessage()}
                 title="Отправить письмо"
                 disabled={
                   Message.length < 6 || isEmailValid(Email) || TopicMessage.length < 6
