@@ -96,14 +96,14 @@ export default function StoryScreen({route, navigation}) {
 	const [refreshing, setRefreshing] = React.useState(false)
 	const [history, setHistory] = useState([])
 	const [userid, setUserId] = useState(1)
-	const [isClear, setIsClear] = useState(true)
+	const [isClear, setIsClear] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const GetPurchaseHistory = () => {
 		AsyncStorage.getItem("id", (err, result) => {
 			//alert(result)
 			if (result) {
 				fetch(
-					`https://scanappbarcode.azurewebsites.net/GetPurchaseHistory/004341cb-9f6b-47c5-a534-c7111ba39048`
+					`https://scanappbarcode.azurewebsites.net/GetPurchaseHistory/${result}`
 				)
 					.then(response => {
 						if (response.status === 200) {
@@ -111,9 +111,15 @@ export default function StoryScreen({route, navigation}) {
 						}
 					})
 					.then(data => {
-						setHistory(data)
-						setIsLoading(false)
-						setRefreshing(false)
+						if (data !== undefined) {
+							setHistory(data)
+							setIsLoading(false)
+							setRefreshing(false)
+						} else {
+							setIsLoading(false)
+							setIsClear(true)
+							setRefreshing(false)
+						}
 					})
 			}
 		})
@@ -124,6 +130,7 @@ export default function StoryScreen({route, navigation}) {
 	}, [])
 
 	const onRefresh = React.useCallback(() => {
+		setIsClear(false)
 		setRefreshing(true)
 		wait(2000).then(() => {
 			GetPurchaseHistory(userid)
@@ -135,7 +142,32 @@ export default function StoryScreen({route, navigation}) {
 			<Text style={{textAlign: "center", fontSize: 24, marginTop: 50}}>
 				История покупок:
 			</Text>
-
+			{isClear ? (
+				<View
+					style={{
+						flexDirection: "column",
+						alignItems: "center",
+						marginTop: 260,
+					}}
+				>
+					<View>
+						<Image
+							source={{
+								uri: "https://img.icons8.com/dusk/452/order-history.png",
+							}}
+							style={{
+								height: 100,
+								width: 100,
+							}}
+						></Image>
+					</View>
+					<Text style={{fontSize: 20, color: "#8d6c9f"}}>
+						История пуста!
+					</Text>
+				</View>
+			) : (
+				<View></View>
+			)}
 			<ScrollView
 				style={{height: "86%", marginTop: 25}}
 				refreshControl={

@@ -45,7 +45,7 @@ const Good = props => {
 
 					<View>
 						<View style={{marginTop: 10, width: "88%"}}>
-							<Text style={{fontSize: 18, marginLeft: 10}}>
+							<Text style={{fontSize: 17, marginLeft: 20}}>
 								{props.product.name}
 							</Text>
 						</View>
