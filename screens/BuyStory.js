@@ -40,23 +40,24 @@ const Purchase = props => {
 					borderColor: "#00aa00",
 					paddingVertical: 10,
 					marginTop: 10,
-					marginHorizontal: 30,
+					marginHorizontal: 15,
 					borderRadius: 14,
 				}}
 			>
 				<Text style={{flex: 1, marginLeft: 20, fontSize: 16}}>
-					Покупка
+					Покупка {props.date}
 				</Text>
 				<Ionicons style={{marginRight: 20}} name={name} size={25} />
 			</TouchableOpacity>
-			<View style={{marginHorizontal: 30, marginTop: 1}}>
+			<View style={{marginHorizontal: 15, marginTop: 1}}>
 				{showList &&
 					props.goods.map(good => {
 						return (
 							<GoodHistory
-								name={good.name}
-								price={good.price}
-								image={good.image}
+								name={good.product.name}
+								price={good.product.price}
+								image={good.product.image}
+								count={good.count}
 							></GoodHistory>
 						)
 					})}
@@ -66,7 +67,7 @@ const Purchase = props => {
 							flexDirection: "row",
 							marginRight: 10,
 							marginBottom: 20,
-							marginTop: 10,
+							marginTop: 20,
 						}}
 					>
 						<Text
@@ -92,10 +93,10 @@ export default function StoryScreen({route, navigation}) {
 	const [isLoading, setIsLoading] = useState(true)
 	const GetPurchaseHistory = () => {
 		AsyncStorage.getItem("id", (err, result) => {
-			alert(result)
+			//alert(result)
 			if (result) {
 				fetch(
-					`https://scanappbarcode.azurewebsites.net/GetPurchaseHistory/cb3c27d5-9436-4657-8aa6-0390598c1af0`
+					`https://scanappbarcode.azurewebsites.net/GetPurchaseHistory/004341cb-9f6b-47c5-a534-c7111ba39048`
 				)
 					.then(response => {
 						if (response.status === 200) {
@@ -156,6 +157,7 @@ export default function StoryScreen({route, navigation}) {
 							<Purchase
 								goods={purch.productsIncludeOrder}
 								sum={purch.totalСost}
+								date={purch.dateTime}
 							></Purchase>
 						)
 					})
