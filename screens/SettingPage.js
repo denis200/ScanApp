@@ -47,7 +47,6 @@ export default function SettingScreen({ route, navigation }) {
         user.phoneNumber = PhoneNumber.international;
         user.dateBirth = BirthDay.dt;
 
-        // AsyncStorage.removeItem('user');
         AsyncStorage.setItem('user', JSON.stringify(user)); // update data
       }
     });

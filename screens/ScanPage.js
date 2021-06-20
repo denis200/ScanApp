@@ -20,6 +20,7 @@ export default function ScanScreen({ route, navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setVisible] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -115,9 +116,19 @@ export default function ScanScreen({ route, navigation }) {
                   <Text style={{ fontSize: 24 }}>{product.price}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', flex: 1 }}>
-                  <Ionicons name={'remove-circle-outline'} size={30}></Ionicons>
-                  <Text style={{ fontSize: 18, marginTop: 3 }}>3 шт</Text>
-                  <Ionicons name={'add-circle-outline'} size={30}></Ionicons>
+                  <Ionicons
+                    onPress={() => {
+                      quantity === 1 ? setQuantity(1) : setQuantity(quantity - 1);
+                    }}
+                    name={'remove-circle-outline'}
+                    size={30}></Ionicons>
+                  <Text style={{ fontSize: 18, marginTop: 3 }}>{quantity} шт</Text>
+                  <Ionicons
+                    onPress={() => {
+                      setQuantity(quantity + 1);
+                    }}
+                    name={'add-circle-outline'}
+                    size={30}></Ionicons>
                 </View>
               </View>
               <Image
@@ -170,10 +181,13 @@ export default function ScanScreen({ route, navigation }) {
             </ScrollView>
             <TouchableOpacity
               onPress={() => {
+                let dat = product;
+                dat['quantity'] = quantity;
                 navigation.navigate('Корзина', {
-                  data: product,
+                  data: dat,
                 }),
                   setVisible(false);
+                setQuantity(1);
               }}
               style={styles.addButton}>
               <Text
