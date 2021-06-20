@@ -1,6 +1,13 @@
 import * as React from "react"
 import {useState} from "react"
-import {View, Text, StyleSheet, CheckBox, TouchableOpacity} from "react-native"
+import {
+	View,
+	Text,
+	StyleSheet,
+	CheckBox,
+	Alert,
+	TouchableOpacity,
+} from "react-native"
 import {isPasswordValid} from "../src/Validation/Valid"
 import {Input, Button} from "react-native-elements"
 import {TextInputMask} from "react-native-masked-text"
@@ -29,7 +36,9 @@ export default function RegScreen({navigation}) {
 
 			body: JSON.stringify(userData),
 		}).then(res => {
-			alert(res.status)
+			if (res.status === 200) {
+				Alert.alert("Успех", "Вы успешно зарегистрировались!")
+			}
 		})
 	}
 
@@ -190,8 +199,7 @@ export default function RegScreen({navigation}) {
 			>
 				<Button
 					onPress={() => {
-						Registrarion(),
-							navigation.navigate("Вход", {fromreg: true})
+						Registrarion(), navigation.goBack()
 					}}
 					disabled={
 						inputPassword1 !== inputPassword2 ||

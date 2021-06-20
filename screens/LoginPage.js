@@ -8,27 +8,17 @@ import {
 	BackHandler,
 	Alert,
 } from "react-native"
+import {StackActions} from "@react-navigation/native"
 import {Input, Button} from "react-native-elements"
 import {isPasswordValid} from "../src/Validation/Valid"
+import {CommonActions} from "@react-navigation/native"
+
 import {AuthContex} from "../components/contex"
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({route, navigation}) {
 	const [inputLogin, setInputLogin] = useState("Denis_Dimaa")
 	const [inputPassword, setinputPassword] = useState("Admin12345_")
 	const {signIn} = React.useContext(AuthContex)
-	useEffect(() => {
-		const backAction = () => {
-			navigation.navigate("Home")
-			return true
-		}
-
-		const backHandler = BackHandler.addEventListener(
-			"hardwareBackPress",
-			backAction
-		)
-
-		return () => navigation.navigate("Home")
-	}, [])
 
 	return (
 		<View>
