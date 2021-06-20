@@ -190,8 +190,8 @@ export default function RegScreen({navigation}) {
 			>
 				<Button
 					onPress={() => {
-						//Registrarion(),
-						navigation.navigate("Вход", {fromreg: true})
+						Registrarion(),
+							navigation.navigate("Вход", {fromreg: true})
 					}}
 					disabled={
 						inputPassword1 !== inputPassword2 ||
