@@ -41,7 +41,7 @@ export default function PersonalUserData(props) {
           type={'datetime'}
           value={props.BirthDay.dt}
           options={{
-            format: 'DD/MM/YYYY',
+            format: 'DD.MM.YYYY',
           }}
           onChangeText={(text) => {
             props.setBirthDay({
