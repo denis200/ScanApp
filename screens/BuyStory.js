@@ -44,8 +44,14 @@ const Purchase = props => {
 					borderRadius: 14,
 				}}
 			>
-				<Text style={{flex: 1, marginLeft: 20, fontSize: 16}}>
-					Покупка {props.date}
+				<Text style={{flex: 1, marginLeft: 20, fontSize: 18}}>
+					Покупка
+				</Text>
+				<Text style={{marginLeft: 20, fontSize: 18}}>
+					{props.date.split("T")[0]}{" "}
+				</Text>
+				<Text style={{marginLeft: 10, fontSize: 18, marginRight: 20}}>
+					{props.date.split("T")[1].split(".")[0].slice(0, 5)}
 				</Text>
 				<Ionicons style={{marginRight: 20}} name={name} size={25} />
 			</TouchableOpacity>
@@ -54,6 +60,7 @@ const Purchase = props => {
 					props.goods.map(good => {
 						return (
 							<GoodHistory
+								key={good.product.upcean}
 								name={good.product.name}
 								price={good.product.price}
 								image={good.product.image}
@@ -155,6 +162,7 @@ export default function StoryScreen({route, navigation}) {
 					history.map(purch => {
 						return (
 							<Purchase
+								key={purch.dateTime}
 								goods={purch.productsIncludeOrder}
 								sum={purch.totalСost}
 								date={purch.dateTime}
