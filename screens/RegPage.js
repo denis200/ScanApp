@@ -14,6 +14,7 @@ export default function RegScreen({ navigation }) {
 
   const [Test, setTest] = useState('');
 
+<<<<<<< HEAD
   const Registrarion = () => {
     let userData = {
       UserLogin: inputLogin.toString(),
@@ -26,6 +27,20 @@ export default function RegScreen({ navigation }) {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
+=======
+	const Registrarion = () => {
+		let userData = {
+			UserLogin: inputLogin.toString(),
+			Name: inputName.toString(),
+			Number: inputPhoneNumber.international.toString(),
+			Password: inputPassword1.toString(),
+		}
+		fetch(`https://scanappbarcode.azurewebsites.net/reg`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json;charset=utf-8",
+			},
+>>>>>>> 3a24e65fd0ab0aa9d8027e4aadf10a486a9601bb
 
       body: JSON.stringify(userData),
     }).then((res) => {
