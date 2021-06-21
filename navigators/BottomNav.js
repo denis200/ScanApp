@@ -1,11 +1,11 @@
 import React from "react"
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import GoodsScreen from "./../screens/GoodsPage"
 import ScanScreen from "../screens/ScanPage"
 import ProfileStackScreen from "./ProfileNav"
 import StoryScreen from "../screens/BuyStory"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {createStackNavigator} from "@react-navigation/stack"
+import GoodsStackScreen from "./GoodsNav"
 
 const Tab = createBottomTabNavigator()
 
@@ -40,7 +40,7 @@ export default function BottomNavScreen() {
 		>
 			<Tab.Screen name="Профиль" component={ProfileStackScreen} />
 			<Tab.Screen name="Сканировать" component={ScanScreen} />
-			<Tab.Screen name="Корзина" component={GoodsScreen} />
+			<Tab.Screen name="Корзина" component={GoodsStackScreen} />
 			<Tab.Screen name="История покупок" component={StoryScreen} />
 		</Tab.Navigator>
 	)

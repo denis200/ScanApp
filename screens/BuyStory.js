@@ -142,32 +142,7 @@ export default function StoryScreen({route, navigation}) {
 			<Text style={{textAlign: "center", fontSize: 24, marginTop: 50}}>
 				История покупок:
 			</Text>
-			{isClear ? (
-				<View
-					style={{
-						flexDirection: "column",
-						alignItems: "center",
-						marginTop: 260,
-					}}
-				>
-					<View>
-						<Image
-							source={{
-								uri: "https://img.icons8.com/dusk/452/order-history.png",
-							}}
-							style={{
-								height: 100,
-								width: 100,
-							}}
-						></Image>
-					</View>
-					<Text style={{fontSize: 20, color: "#8d6c9f"}}>
-						История пуста!
-					</Text>
-				</View>
-			) : (
-				<View></View>
-			)}
+
 			<ScrollView
 				style={{height: "86%", marginTop: 25}}
 				refreshControl={
@@ -177,6 +152,32 @@ export default function StoryScreen({route, navigation}) {
 					/>
 				}
 			>
+				{isClear ? (
+					<View
+						style={{
+							flexDirection: "column",
+							alignItems: "center",
+							marginTop: 260,
+						}}
+					>
+						<View>
+							<Image
+								source={{
+									uri: "https://img.icons8.com/dusk/452/order-history.png",
+								}}
+								style={{
+									height: 100,
+									width: 100,
+								}}
+							></Image>
+						</View>
+						<Text style={{fontSize: 20, color: "#8d6c9f"}}>
+							История пуста!
+						</Text>
+					</View>
+				) : (
+					<View></View>
+				)}
 				{isLoading ? (
 					<View
 						style={{
