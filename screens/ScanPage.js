@@ -220,7 +220,10 @@ export default function ScanScreen({route, navigation}) {
 								let dat = product
 								dat["quantity"] = quantity
 								navigation.navigate("Корзина", {
-									data: dat,
+									screen: "Корзина",
+									params: {
+										data: dat,
+									},
 								}),
 									setVisible(false)
 								setQuantity(1)
