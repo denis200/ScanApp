@@ -25,7 +25,7 @@ export default function RegScreen({navigation}) {
 		let userData = {
 			UserLogin: inputLogin.toString(),
 			Name: inputName.toString(),
-			Number: inputPhoneNumber.toString(),
+			Number: inputPhoneNumber.international.toString(),
 			Password: inputPassword1.toString(),
 		}
 		fetch(`https://scanappbarcode.azurewebsites.net/reg`, {
