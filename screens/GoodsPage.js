@@ -21,16 +21,17 @@ export default function GoodsScreen({route, navigation}) {
 	const [goods, setGoods] = useState([])
 	const [count, setCount] = useState(0)
 	const [sum, setSum] = useState(0)
-	const [isFound, setFound] = useState(false)
+	const [fromprev, setPrev] = useState(false)
 	const [quantityname, setQuantityname] = useState("")
-	const addGood = data => {
+	function addGood(data) {
 		let isFind = goods.find(good => good.upcean === data.upcean)
 
 		if (isFind === undefined) {
 			setGoods(prev => [...prev, data])
 
-			setCount(count + 1)
-			setSum(sum + data.price * data.quantity)
+			setCount(prev => prev + 1)
+
+			setSum(prev => prev + data.price * data.quantity)
 		} else {
 			goods.map(obj =>
 				obj.upcean === data.upcean
@@ -75,11 +76,17 @@ export default function GoodsScreen({route, navigation}) {
 	}
 
 	React.useEffect(() => {
-		if (route.params?.data) {
-			//alert(route.params?.data)
-			addGood(route.params?.data)
+		if (route.params?.data2) {
+			addGood(route.params?.data2)
 		}
-	}, [route.params?.data])
+	}, [route.params?.data2])
+
+	React.useEffect(() => {
+		if (route.params?.data1) {
+			addGood(route.params?.data1)
+		}
+	}, [route.params?.data1])
+
 	React.useEffect(() => {
 		if (route.params?.frompay) {
 			setCount(0)
@@ -131,7 +138,14 @@ export default function GoodsScreen({route, navigation}) {
 					})}
 				</ScrollView>
 			</View>
-			<Text style={styles.scanButton}>Отсканировать товар</Text>
+			<Text
+				onPress={() => {
+					alert(JSON.stringify(goods) + JSON.stringify(goods.length))
+				}}
+				style={styles.scanButton}
+			>
+				Отсканировать товар
+			</Text>
 
 			<View
 				style={{flexDirection: "row", marginTop: 30, marginRight: 30}}

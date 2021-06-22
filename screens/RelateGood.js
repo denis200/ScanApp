@@ -12,16 +12,16 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {ScrollView} from "react-native-gesture-handler"
 
-export default function ModalScreen(props, {route, navigation}) {
-	const [visible, setVisible] = React.useState(false)
+export default function RelateScreen(props) {
 	return (
-		<View>
-			<Modal transparent={true} visible={true} style={styles.modal}>
-				<View style={{backgroundColor: "#000000aa", flex: 1}}>
-					<View style={styles.modal}>
+		<Modal transparent={true} visible={true} style={styles.modal}>
+			<View style={{backgroundColor: "#000000aa", flex: 1}}>
+				<View style={styles.modal}>
+					<ScrollView>
 						<TouchableOpacity
 							onPress={() => {
 								props.change()
+								props.clear()
 							}}
 							style={styles.closeModal}
 						>
@@ -29,17 +29,18 @@ export default function ModalScreen(props, {route, navigation}) {
 								Закрыть
 							</Text>
 						</TouchableOpacity>
-						<View style={{alignItems: "center"}}>
+
+						<View style={{alignItems: "center", marginTop: 20}}>
 							<Image
 								style={styles.image}
 								source={{
-									uri: "https://reactnative.dev/img/tiny_logo.png",
+									uri: props.product.image,
 								}}
 							></Image>
 						</View>
-						<View>
-							<Text style={{fontSize: 20, marginLeft: 20}}>
-								Молоко
+						<View style={{marginTop: 20}}>
+							<Text style={{fontSize: 20, marginHorizontal: 20}}>
+								{props.product.name}
 							</Text>
 						</View>
 						<View
@@ -49,21 +50,10 @@ export default function ModalScreen(props, {route, navigation}) {
 								marginTop: 8,
 							}}
 						>
-							<View style={{flex: 1}}>
-								<Text style={{fontSize: 24}}>60</Text>
-							</View>
-							<View style={{flexDirection: "row", flex: 1}}>
-								<Ionicons
-									name={"remove-circle-outline"}
-									size={30}
-								></Ionicons>
-								<Text style={{fontSize: 18, marginTop: 3}}>
-									3 шт
+							<View style={{flex: 2}}>
+								<Text style={{fontSize: 24}}>
+									{props.product.price}
 								</Text>
-								<Ionicons
-									name={"add-circle-outline"}
-									size={30}
-								></Ionicons>
 							</View>
 						</View>
 						<Image
@@ -73,47 +63,47 @@ export default function ModalScreen(props, {route, navigation}) {
 						<View>
 							<Text
 								style={{
-									textAlign: "center",
-									marginTop: 10,
-									fontSize: 22,
+									fontSize: 20,
+									marginLeft: 20,
+									marginTop: 20,
+									color: "grey",
 								}}
 							>
-								Похожие товары:
+								Описание:
 							</Text>
-						</View>
-						<View>
-							<ScrollView
-								horizontal={true}
-								style={{height: "17%"}}
-							></ScrollView>
-						</View>
-						<View>
-							<Text style={{textAlign: "center", fontSize: 22}}>
-								С этим берут:
-							</Text>
-						</View>
-						<View>
-							<ScrollView
-								horizontal={true}
-								style={{height: "17%"}}
-							></ScrollView>
-						</View>
-						<TouchableOpacity style={styles.addButton}>
 							<Text
 								style={{
-									textAlign: "center",
-									paddingVertical: 11,
-									color: "#fff",
 									fontSize: 17,
+									marginHorizontal: 20,
+									marginTop: 5,
 								}}
 							>
-								Добавить
+								{props.product.description}
 							</Text>
-						</TouchableOpacity>
-					</View>
+						</View>
+
+						<View style={{height: 20}}></View>
+					</ScrollView>
+					<TouchableOpacity
+						onPress={() => {
+							props.change()
+						}}
+						style={styles.addButton}
+					>
+						<Text
+							style={{
+								textAlign: "center",
+								paddingVertical: 11,
+								color: "#fff",
+								fontSize: 17,
+							}}
+						>
+							Добавить
+						</Text>
+					</TouchableOpacity>
 				</View>
-			</Modal>
-		</View>
+			</View>
+		</Modal>
 	)
 }
 

@@ -9,8 +9,10 @@ import {
 	Image,
 	ActivityIndicator,
 } from "react-native"
+import GoodsScreen from "./GoodsPage"
 import {BarCodeScanner} from "expo-barcode-scanner"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import RelateScreen from "./RelateGood"
 import {ScrollView} from "react-native-gesture-handler"
 import SmallGood from "../components/ui/goodSmall"
 
@@ -21,6 +23,8 @@ export default function ScanScreen({route, navigation}) {
 	const [scanned, setScanned] = useState(false)
 	const [modalVisible, setVisible] = useState(false)
 	const [quantity, setQuantity] = useState(1)
+	const [relate, setRelate] = useState(false)
+	const [realateproduct, setRelateProduct] = useState()
 
 	useEffect(() => {
 		;(async () => {
@@ -28,6 +32,13 @@ export default function ScanScreen({route, navigation}) {
 			setHasPermission(status === "granted")
 		})()
 	}, [])
+
+	const change = () => {
+		setRelate(false)
+	}
+	const clear = () => {
+		setRelateProduct({})
+	}
 
 	const GetGoodInfo = barcode => {
 		fetch(`https://scanappbarcode.azurewebsites.net/GetProduct`, {
@@ -205,10 +216,17 @@ export default function ScanScreen({route, navigation}) {
 								>
 									{related.map(good => {
 										return (
-											<SmallGood
-												image={good.image}
-												price={good.price}
-											></SmallGood>
+											<TouchableOpacity
+												onPress={() => {
+													setRelate(true)
+													setRelateProduct(good)
+												}}
+											>
+												<SmallGood
+													image={good.image}
+													price={good.price}
+												/>
+											</TouchableOpacity>
 										)
 									})}
 								</ScrollView>
@@ -219,10 +237,13 @@ export default function ScanScreen({route, navigation}) {
 							onPress={() => {
 								let dat = product
 								dat["quantity"] = quantity
+								let dat1 = realateproduct
+								dat1["quantity"] = 1
 								navigation.navigate("Корзина", {
 									screen: "Корзина",
 									params: {
-										data: dat,
+										data1: dat1,
+										data2: dat,
 									},
 								}),
 									setVisible(false)
@@ -244,6 +265,22 @@ export default function ScanScreen({route, navigation}) {
 					</View>
 				</View>
 			</Modal>
+			{relate ? (
+				<View>
+					<RelateScreen
+						nav={navigation}
+						change={() => {
+							change()
+						}}
+						clear={() => {
+							clear()
+						}}
+						product={realateproduct}
+					/>
+				</View>
+			) : (
+				<View></View>
+			)}
 		</View>
 	)
 }

@@ -8,7 +8,10 @@ const ProfileStack = createStackNavigator()
 
 export default function GoodsStackScreen() {
 	return (
-		<ProfileStack.Navigator screenOptions={{headerShown: false}}>
+		<ProfileStack.Navigator
+			initialRouteName="Корзина"
+			screenOptions={{headerShown: false}}
+		>
 			<ProfileStack.Screen name="Корзина" component={GoodsScreen} />
 			<ProfileStack.Screen name="Оплата" component={PayScreen} />
 			<ProfileStack.Screen name="Карта" component={CreditCardScreen} />
