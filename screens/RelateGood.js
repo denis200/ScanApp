@@ -14,96 +14,102 @@ import {ScrollView} from "react-native-gesture-handler"
 
 export default function RelateScreen(props) {
 	return (
-		<Modal transparent={true} visible={true} style={styles.modal}>
-			<View style={{backgroundColor: "#000000aa", flex: 1}}>
-				<View style={styles.modal}>
-					<ScrollView>
+		<View>
+			<Modal transparent={true} visible={true} style={styles.modal}>
+				<View style={{backgroundColor: "#000000aa", flex: 1}}>
+					<View style={styles.modal}>
+						<ScrollView>
+							<TouchableOpacity
+								onPress={() => {
+									props.change()
+									props.clear()
+								}}
+								style={styles.closeModal}
+							>
+								<Text
+									style={{textAlign: "center", color: "#fff"}}
+								>
+									Закрыть
+								</Text>
+							</TouchableOpacity>
+
+							<View style={{alignItems: "center", marginTop: 20}}>
+								<Image
+									style={styles.image}
+									source={{
+										uri: props.product.image,
+									}}
+								></Image>
+							</View>
+							<View style={{marginTop: 20}}>
+								<Text
+									style={{fontSize: 20, marginHorizontal: 20}}
+								>
+									{props.product.name}
+								</Text>
+							</View>
+							<View
+								style={{
+									flexDirection: "row",
+									marginLeft: 20,
+									marginTop: 8,
+								}}
+							>
+								<View style={{flex: 2}}>
+									<Text style={{fontSize: 24}}>
+										{props.product.price}
+									</Text>
+								</View>
+							</View>
+							<Image
+								source={require("../src/stick.jpg")}
+								style={{marginHorizontal: 20, marginTop: 15}}
+							></Image>
+							<View>
+								<Text
+									style={{
+										fontSize: 20,
+										marginLeft: 20,
+										marginTop: 20,
+										color: "grey",
+									}}
+								>
+									Описание:
+								</Text>
+								<Text
+									style={{
+										fontSize: 17,
+										marginHorizontal: 20,
+										marginTop: 5,
+									}}
+								>
+									{props.product.description}
+								</Text>
+							</View>
+
+							<View style={{height: 20}}></View>
+						</ScrollView>
 						<TouchableOpacity
 							onPress={() => {
 								props.change()
-								props.clear()
 							}}
-							style={styles.closeModal}
+							style={styles.addButton}
 						>
-							<Text style={{textAlign: "center", color: "#fff"}}>
-								Закрыть
+							<Text
+								style={{
+									textAlign: "center",
+									paddingVertical: 11,
+									color: "#fff",
+									fontSize: 17,
+								}}
+							>
+								Добавить
 							</Text>
 						</TouchableOpacity>
-
-						<View style={{alignItems: "center", marginTop: 20}}>
-							<Image
-								style={styles.image}
-								source={{
-									uri: props.product.image,
-								}}
-							></Image>
-						</View>
-						<View style={{marginTop: 20}}>
-							<Text style={{fontSize: 20, marginHorizontal: 20}}>
-								{props.product.name}
-							</Text>
-						</View>
-						<View
-							style={{
-								flexDirection: "row",
-								marginLeft: 20,
-								marginTop: 8,
-							}}
-						>
-							<View style={{flex: 2}}>
-								<Text style={{fontSize: 24}}>
-									{props.product.price}
-								</Text>
-							</View>
-						</View>
-						<Image
-							source={require("../src/stick.jpg")}
-							style={{marginHorizontal: 20, marginTop: 15}}
-						></Image>
-						<View>
-							<Text
-								style={{
-									fontSize: 20,
-									marginLeft: 20,
-									marginTop: 20,
-									color: "grey",
-								}}
-							>
-								Описание:
-							</Text>
-							<Text
-								style={{
-									fontSize: 17,
-									marginHorizontal: 20,
-									marginTop: 5,
-								}}
-							>
-								{props.product.description}
-							</Text>
-						</View>
-
-						<View style={{height: 20}}></View>
-					</ScrollView>
-					<TouchableOpacity
-						onPress={() => {
-							props.change()
-						}}
-						style={styles.addButton}
-					>
-						<Text
-							style={{
-								textAlign: "center",
-								paddingVertical: 11,
-								color: "#fff",
-								fontSize: 17,
-							}}
-						>
-							Добавить
-						</Text>
-					</TouchableOpacity>
+					</View>
 				</View>
-			</View>
-		</Modal>
+			</Modal>
+		</View>
 	)
 }
 
