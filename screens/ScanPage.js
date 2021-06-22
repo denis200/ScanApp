@@ -8,6 +8,7 @@ import {
 	Modal,
 	Image,
 	ActivityIndicator,
+	Platform,
 } from "react-native"
 import GoodsScreen from "./GoodsPage"
 import {BarCodeScanner} from "expo-barcode-scanner"
@@ -193,44 +194,55 @@ export default function ScanScreen({route, navigation}) {
 									{product.description}
 								</Text>
 							</View>
-							<View>
-								<Text
-									style={{
-										fontSize: 20,
-										marginLeft: 20,
-										marginTop: 20,
-										color: "grey",
-									}}
-								>
-									С этим берут:
-								</Text>
-							</View>
-							<View>
-								<ScrollView
-									style={{
-										marginTop: 10,
-										marginHorizontal: 20,
-									}}
-									showsHorizontalScrollIndicator={false}
-									horizontal={true}
-								>
-									{related.map(good => {
-										return (
-											<TouchableOpacity
-												onPress={() => {
-													setRelate(true)
-													setRelateProduct(good)
-												}}
-											>
-												<SmallGood
-													image={good.image}
-													price={good.price}
-												/>
-											</TouchableOpacity>
-										)
-									})}
-								</ScrollView>
-							</View>
+							{Platform.OS !== "ios" ? (
+								<View>
+									<View>
+										<Text
+											style={{
+												fontSize: 20,
+												marginLeft: 20,
+												marginTop: 20,
+												color: "grey",
+											}}
+										>
+											С этим берут:
+										</Text>
+									</View>
+									<View>
+										<ScrollView
+											style={{
+												marginTop: 10,
+												marginHorizontal: 20,
+											}}
+											showsHorizontalScrollIndicator={
+												false
+											}
+											horizontal={true}
+										>
+											{related.map(good => {
+												return (
+													<TouchableOpacity
+														onPress={() => {
+															setRelate(true)
+															setRelateProduct(
+																good
+															)
+														}}
+													>
+														<SmallGood
+															image={good.image}
+															price={good.price}
+														/>
+													</TouchableOpacity>
+												)
+											})}
+										</ScrollView>
+									</View>
+								</View>
+							) : (
+								<View></View>
+							)}
+
 							<View style={{height: 20}}></View>
 						</ScrollView>
 						<TouchableOpacity

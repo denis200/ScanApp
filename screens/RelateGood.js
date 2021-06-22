@@ -7,6 +7,7 @@ import {
 	TouchableOpacity,
 	Modal,
 	Image,
+	Alert,
 	SafeAreaView,
 	ActivityIndicator,
 } from "react-native"
@@ -94,6 +95,10 @@ export default function RelateScreen(props) {
 						<TouchableOpacity
 							onPress={() => {
 								props.change()
+								Alert.alert(
+									"Успех",
+									"Товар успешно добавлен в корзину"
+								)
 							}}
 							style={styles.addButton}
 						>

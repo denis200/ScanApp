@@ -1,7 +1,7 @@
 import * as React from "react"
 import {useState} from "react"
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native"
-import {Button, Image} from "react-native-elements"
+import {StyleSheet, View, Text, TouchableOpacity, Image} from "react-native"
+import {Button} from "react-native-elements"
 import {Avatar} from "react-native-elements"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {AuthContex} from "../components/contex"
@@ -32,7 +32,7 @@ export default function ProfileScreen({navigation}) {
 
 	return (
 		<View style={{backgroundColor: "#fff", height: "100%"}}>
-			<View style={{marginTop: 40}}>
+			<View style={{marginTop: 30}}>
 				<View style={{flexDirection: "row", marginHorizontal: 10}}>
 					<View style={{marginLeft: 10}}>
 						<Avatar
@@ -43,7 +43,7 @@ export default function ProfileScreen({navigation}) {
 							onPress={() => console.log("Works!")}
 							activeOpacity={0.7}
 							avatarStyle={{
-								borderColor: "#696969",
+								borderColor: "#00aa00",
 								borderWidth: 2,
 							}}
 						/>
@@ -51,7 +51,7 @@ export default function ProfileScreen({navigation}) {
 					<View>
 						<Text
 							style={{
-								fontSize: 40,
+								fontSize: 35,
 								marginHorizontal: 20,
 								marginTop: 10,
 							}}
@@ -60,7 +60,16 @@ export default function ProfileScreen({navigation}) {
 						</Text>
 					</View>
 				</View>
+
 				<View>
+					<Image
+						source={require("./../src/stick.jpg")}
+						style={{
+							marginHorizontal: 20,
+							marginTop: "15%",
+						}}
+					></Image>
+
 					<View style={styles.fieldsWrapper}>
 						<TouchableOpacity
 							style={styles.fields}
@@ -68,12 +77,23 @@ export default function ProfileScreen({navigation}) {
 								navigation.navigate("Настройки", {user: user})
 							}}
 						>
-							<Text style={{fontSize: 30}}>
-								Настройки профиля
-							</Text>
+							<View style={styles.punkt}>
+								<Ionicons
+									name={"settings-outline"}
+									size={32}
+								></Ionicons>
+								<Text style={styles.textof}>
+									Настройки профиля
+								</Text>
+							</View>
 						</TouchableOpacity>
 					</View>
-
+					<Image
+						source={require("./../src/stick.jpg")}
+						style={{
+							marginHorizontal: 20,
+						}}
+					></Image>
 					<View style={styles.fieldsWrapper}>
 						<TouchableOpacity
 							style={styles.fields}
@@ -81,9 +101,21 @@ export default function ProfileScreen({navigation}) {
 								navigation.navigate("Адреса")
 							}}
 						>
-							<Text style={{fontSize: 30}}>Наши адреса</Text>
+							<View style={styles.punkt}>
+								<Ionicons
+									name={"map-outline"}
+									size={32}
+								></Ionicons>
+								<Text style={styles.textof}>Наши адреса</Text>
+							</View>
 						</TouchableOpacity>
 					</View>
+					<Image
+						source={require("./../src/stick.jpg")}
+						style={{
+							marginHorizontal: 20,
+						}}
+					></Image>
 
 					<View style={styles.fieldsWrapper}>
 						<TouchableOpacity
@@ -92,28 +124,45 @@ export default function ProfileScreen({navigation}) {
 								navigation.navigate("FeedBack")
 							}}
 						>
-							<Text style={{fontSize: 30}}>Связаться с нами</Text>
+							<View style={styles.punkt}>
+								<Ionicons
+									name={"mail-open-outline"}
+									size={32}
+								></Ionicons>
+								<Text style={styles.textof}>
+									Связаться с нами
+								</Text>
+							</View>
 						</TouchableOpacity>
 					</View>
-				</View>
-				<View>
-					<View style={{marginTop: "25%"}}>
-						<Button
+					<Image
+						source={require("./../src/stick.jpg")}
+						style={{
+							marginHorizontal: 20,
+						}}
+					></Image>
+					<View style={styles.fieldsWrapper}>
+						<TouchableOpacity
+							style={styles.fields}
 							onPress={() => {
 								signOut()
 							}}
-							lab
-							title="Выйти из аккаунта"
-							style={{
-								marginHorizontal: "23%",
-								borderRadius: 17,
-								backgroundColor: "#00a86b",
-								color: "#FF0000",
-								textAlign: "center",
-								fontSize: 22,
-							}}
-						/>
+						>
+							<View style={styles.punkt}>
+								<Ionicons
+									name={"walk-outline"}
+									size={32}
+								></Ionicons>
+								<Text style={styles.textof}>Выход</Text>
+							</View>
+						</TouchableOpacity>
 					</View>
+					<Image
+						source={require("./../src/stick.jpg")}
+						style={{
+							marginHorizontal: 20,
+						}}
+					></Image>
 				</View>
 			</View>
 		</View>
@@ -150,14 +199,21 @@ const styles = StyleSheet.create({
 	},
 	fieldsWrapper: {
 		flexDirection: "row",
-		marginTop: "20%",
-		marginHorizontal: "10%",
-		backgroundColor: "#DCDCDC",
-		borderRadius: 10,
 	},
 	fields: {
-		padding: "2%",
+		padding: "4%",
 		width: "100%",
+
 		height: "100%",
+	},
+	textof: {
+		fontSize: 25,
+		textAlign: "center",
+		marginLeft: 17,
+	},
+	punkt: {
+		alignItems: "center",
+		flexDirection: "row",
+		paddingLeft: 30,
 	},
 })
