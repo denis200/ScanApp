@@ -6,7 +6,6 @@ import {
 	Button,
 	TouchableOpacity,
 	Modal,
-	SafeAreaView,
 	Image,
 	ActivityIndicator,
 } from "react-native"
@@ -25,20 +24,17 @@ export default function ScanScreen({route, navigation}) {
 	const [modalVisible, setVisible] = useState(false)
 	const [quantity, setQuantity] = useState(1)
 	const [relate, setRelate] = useState(false)
-	const [realateproduct, setRelateProduct] = useState()
+	const [realateproduct, setRelateProduct] = useState({})
 
 	useEffect(() => {
 		;(async () => {
 			const {status} = await BarCodeScanner.requestPermissionsAsync()
 			setHasPermission(status === "granted")
 		})()
-		alert(modalVisible)
 	}, [])
 
 	const change = () => {
-		setVisible(false)
 		setRelate(false)
-		setVisible(true)
 	}
 	const clear = () => {
 		setRelateProduct({})
@@ -102,215 +98,200 @@ export default function ScanScreen({route, navigation}) {
 					</Text>
 				</TouchableOpacity>
 			)}
-			<Modal visible={modalVisible} style={styles.modal}>
-				<View style={styles.modal}>
-					<ScrollView>
-						<TouchableOpacity
-							onPress={() => {
-								setVisible(false)
-							}}
-							style={styles.closeModal}
-						>
-							<Text
-								style={{
-									textAlign: "center",
-									color: "#fff",
+			<Modal
+				transparent={true}
+				visible={modalVisible}
+				style={styles.modal}
+			>
+				<View style={{backgroundColor: "#000000aa", flex: 1}}>
+					<View style={styles.modal}>
+						<ScrollView>
+							<TouchableOpacity
+								onPress={() => {
+									setVisible(false)
 								}}
+								style={styles.closeModal}
 							>
-								Закрыть
-							</Text>
-						</TouchableOpacity>
+								<Text
+									style={{textAlign: "center", color: "#fff"}}
+								>
+									Закрыть
+								</Text>
+							</TouchableOpacity>
 
-						<View
-							style={{
-								alignItems: "center",
-								marginTop: 20,
-							}}
-						>
-							<Image
-								style={styles.image}
-								source={{
-									uri: product.image,
-								}}
-							></Image>
-						</View>
-						<View style={{marginTop: 20}}>
-							<Text
-								style={{
-									fontSize: 20,
-									marginHorizontal: 20,
-								}}
-							>
-								{product.name}
-							</Text>
-						</View>
-						<View
-							style={{
-								flexDirection: "row",
-								marginLeft: 20,
-								marginTop: 8,
-							}}
-						>
-							<View style={{flex: 2}}>
-								<Text style={{fontSize: 24}}>
-									{product.price}
+							<View style={{alignItems: "center", marginTop: 20}}>
+								<Image
+									style={styles.image}
+									source={{
+										uri: product.image,
+									}}
+								></Image>
+							</View>
+							<View style={{marginTop: 20}}>
+								<Text
+									style={{fontSize: 20, marginHorizontal: 20}}
+								>
+									{product.name}
 								</Text>
 							</View>
 							<View
 								style={{
 									flexDirection: "row",
-									flex: 1,
+									marginLeft: 20,
+									marginTop: 8,
 								}}
 							>
-								<Ionicons
-									onPress={() => {
-										quantity === 1
-											? setQuantity(1)
-											: setQuantity(quantity - 1)
-									}}
-									name={"remove-circle-outline"}
-									size={30}
-								></Ionicons>
+								<View style={{flex: 2}}>
+									<Text style={{fontSize: 24}}>
+										{product.price}
+									</Text>
+								</View>
+								<View style={{flexDirection: "row", flex: 1}}>
+									<Ionicons
+										onPress={() => {
+											quantity === 1
+												? setQuantity(1)
+												: setQuantity(quantity - 1)
+										}}
+										name={"remove-circle-outline"}
+										size={30}
+									></Ionicons>
+									<Text style={{fontSize: 18, marginTop: 3}}>
+										{quantity} шт
+									</Text>
+									<Ionicons
+										onPress={() => {
+											setQuantity(quantity + 1)
+										}}
+										name={"add-circle-outline"}
+										size={30}
+									></Ionicons>
+								</View>
+							</View>
+							<Image
+								source={require("../src/stick.jpg")}
+								style={{marginHorizontal: 20, marginTop: 15}}
+							></Image>
+							<View>
 								<Text
 									style={{
-										fontSize: 18,
-										marginTop: 3,
+										fontSize: 20,
+										marginLeft: 20,
+										marginTop: 20,
+										color: "grey",
 									}}
 								>
-									{quantity} шт
+									Описание:
 								</Text>
-								<Ionicons
-									onPress={() => {
-										setQuantity(quantity + 1)
+								<Text
+									style={{
+										fontSize: 17,
+										marginHorizontal: 20,
+										marginTop: 5,
 									}}
-									name={"add-circle-outline"}
-									size={30}
-								></Ionicons>
+								>
+									{product.description}
+								</Text>
 							</View>
-						</View>
-						<Image
-							source={require("../src/stick.jpg")}
-							style={{
-								marginHorizontal: 20,
-								marginTop: 15,
-							}}
-						></Image>
-						<View>
-							<Text
-								style={{
-									fontSize: 20,
-									marginLeft: 20,
-									marginTop: 20,
-									color: "grey",
-								}}
-							>
-								Описание:
-							</Text>
-							<Text
-								style={{
-									fontSize: 17,
-									marginHorizontal: 20,
-									marginTop: 5,
-								}}
-							>
-								{product.description}
-							</Text>
-						</View>
-						<View>
-							<Text
-								style={{
-									fontSize: 20,
-									marginLeft: 20,
-									marginTop: 20,
-									color: "grey",
-								}}
-							>
-								С этим берут:
-							</Text>
-						</View>
-						<View>
-							<ScrollView
-								style={{
-									marginTop: 10,
-									marginHorizontal: 20,
-								}}
-								showsHorizontalScrollIndicator={false}
-								horizontal={true}
-							>
-								{related.map(good => {
-									return (
-										<TouchableOpacity
-											onPress={() => {
-												setVisible(false)
-												setRelate(true)
-												setRelateProduct(good)
-											}}
-										>
-											<SmallGood
-												image={good.image}
-												price={good.price}
-											/>
-										</TouchableOpacity>
-									)
-								})}
-							</ScrollView>
-						</View>
-						<View style={{height: 20}}></View>
-					</ScrollView>
-					<TouchableOpacity
-						onPress={() => {
-							let dat = product
-							dat["quantity"] = quantity
-							let dat1 = realateproduct
-							dat1["quantity"] = 1
-							navigation.navigate("Корзина", {
-								screen: "Корзина",
-								params: {
-									data1: dat1,
-									data2: dat,
-								},
-							}),
+							<View>
+								<Text
+									style={{
+										fontSize: 20,
+										marginLeft: 20,
+										marginTop: 20,
+										color: "grey",
+									}}
+								>
+									С этим берут:
+								</Text>
+							</View>
+							<View>
+								<ScrollView
+									style={{
+										marginTop: 10,
+										marginHorizontal: 20,
+									}}
+									showsHorizontalScrollIndicator={false}
+									horizontal={true}
+								>
+									{related.map(good => {
+										return (
+											<TouchableOpacity
+												onPress={() => {
+													setRelate(true)
+													setRelateProduct(good)
+												}}
+											>
+												<SmallGood
+													image={good.image}
+													price={good.price}
+												/>
+											</TouchableOpacity>
+										)
+									})}
+								</ScrollView>
+							</View>
+							<View style={{height: 20}}></View>
+						</ScrollView>
+						<TouchableOpacity
+							onPress={() => {
+								let dat = product
+								dat["quantity"] = quantity
+
+								if (Object.keys(realateproduct).length === 0) {
+									navigation.navigate("Корзина", {
+										screen: "Корзина",
+										params: {
+											data2: dat,
+										},
+									})
+								} else {
+									let dat1 = realateproduct
+									dat1["quantity"] = 1
+									navigation.navigate("Корзина", {
+										screen: "Корзина",
+										params: {
+											data1: dat1,
+											data2: dat,
+										},
+									})
+								}
+
 								setVisible(false)
-							setQuantity(1)
-						}}
-						style={styles.addButton}
-					>
-						<Text
-							style={{
-								textAlign: "center",
-								paddingVertical: 11,
-								color: "#fff",
-								fontSize: 17,
+								setQuantity(1)
 							}}
+							style={styles.addButton}
 						>
-							Добавить
-						</Text>
-					</TouchableOpacity>
+							<Text
+								style={{
+									textAlign: "center",
+									paddingVertical: 11,
+									color: "#fff",
+									fontSize: 17,
+								}}
+							>
+								Добавить
+							</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</Modal>
-
-			<View>
-				{relate ? (
-					<View>
-						<RelateScreen
-							nav={navigation}
-							change={() => {
-								change()
-							}}
-							clear={() => {
-								clear()
-							}}
-							product={realateproduct}
-							modalniy={true}
-						/>
-						<Text>Relate ON</Text>
-					</View>
-				) : (
-					<View>
-						<Text>Relate off</Text>
-					</View>
-				)}
-			</View>
+			{relate ? (
+				<View>
+					<RelateScreen
+						nav={navigation}
+						change={() => {
+							change()
+						}}
+						clear={() => {
+							clear()
+						}}
+						product={realateproduct}
+					/>
+				</View>
+			) : (
+				<View></View>
+			)}
 		</View>
 	)
 }
