@@ -7,6 +7,7 @@ import {
 	TouchableOpacity,
 	Modal,
 	Image,
+	SafeAreaView,
 	ActivityIndicator,
 } from "react-native"
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -15,6 +16,7 @@ import {ScrollView} from "react-native-gesture-handler"
 export default function RelateScreen(props) {
 	return (
 		<View>
+			<Text>Hello world</Text>
 			<Modal transparent={true} visible={true} style={styles.modal}>
 				<View style={{backgroundColor: "#000000aa", flex: 1}}>
 					<View style={styles.modal}>
