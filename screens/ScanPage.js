@@ -34,6 +34,7 @@ export default function ScanScreen({ route, navigation }) {
   }, []);
 
   const change = () => {
+    setVisible(true);
     setRelate(false);
   };
   const clear = () => {
@@ -203,6 +204,7 @@ export default function ScanScreen({ route, navigation }) {
                     return (
                       <TouchableOpacity
                         onPress={() => {
+                          setVisible(false);
                           setRelate(true);
                           setRelateProduct(good);
                         }}>
@@ -244,6 +246,25 @@ export default function ScanScreen({ route, navigation }) {
           </View>
         </View>
       </Modal>
+      <View>
+        {relate ? (
+          <View>
+            <RelateScreen
+              nav={navigation}
+              change={() => {
+                change();
+              }}
+              clear={() => {
+                clear();
+              }}
+              product={realateproduct}
+              modalniy={true}
+            />
+          </View>
+        ) : (
+          <View></View>
+        )}
+      </View>
     </View>
   );
 }
