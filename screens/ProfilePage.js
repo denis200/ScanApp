@@ -43,7 +43,7 @@ export default function ProfileScreen({navigation}) {
 							onPress={() => console.log("Works!")}
 							activeOpacity={0.7}
 							avatarStyle={{
-								borderColor: "#00aa00",
+								borderColor: "#696969",
 								borderWidth: 2,
 							}}
 						/>
@@ -60,89 +60,50 @@ export default function ProfileScreen({navigation}) {
 						</Text>
 					</View>
 				</View>
-				<View style={{marginHorizontal: 30}}>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate("Настройки", {user: user})
-						}}
-						style={{
-							flexDirection: "row",
-							marginTop: 50,
-							marginTop: "20%",
-						}}
-					>
-						<Text style={{fontSize: 30}}>Настройки профиля</Text>
-						<Ionicons
-							style={{marginHorizontal: "10%", paddingTop: 1}}
-							name={"arrow-forward-circle-outline"}
-							size={35}
-							color={"gray"}
-						/>
-					</TouchableOpacity>
-					<Image
-						style={{height: 3, width: "100%"}}
-						source={require(".././src/stick.jpg")}
-					/>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate("Адреса")
-						}}
-						style={{
-							flexDirection: "row",
-							marginTop: 60,
-							justifyContent: "flex-end",
-							marginTop: "20%",
-						}}
-					>
-						<Text style={{fontSize: 30, marginRight: "36%"}}>
-							Наши адреса
-						</Text>
-						<Ionicons
-							style={{marginRight: 9}}
-							name={"arrow-forward-circle-outline"}
-							size={35}
-							color={"gray"}
-						/>
-					</TouchableOpacity>
-					<Image
-						style={{height: 3, width: "100%"}}
-						source={require(".././src/stick.jpg")}
-					/>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate("FeedBack")
-						}}
-						style={{
-							flexDirection: "row",
-							marginTop: 60,
-							justifyContent: "flex-end",
-							marginTop: "20%",
-						}}
-					>
-						<Text style={{fontSize: 30, marginRight: "20%"}}>
-							Связаться с нами
-						</Text>
-						<Ionicons
-							style={{marginRight: 9}}
-							name={"arrow-forward-circle-outline"}
-							size={35}
-							color={"gray"}
-						/>
-					</TouchableOpacity>
-					<Image
-						style={{height: 3, width: "100%"}}
-						source={require(".././src/stick.jpg")}
-					/>
+				<View>
+					<View style={styles.fieldsWrapper}>
+						<TouchableOpacity
+							style={styles.fields}
+							onPress={() => {
+								navigation.navigate("Настройки", {user: user})
+							}}
+						>
+							<Text style={{fontSize: 30}}>
+								Настройки профиля
+							</Text>
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.fieldsWrapper}>
+						<TouchableOpacity
+							style={styles.fields}
+							onPress={() => {
+								navigation.navigate("Адреса")
+							}}
+						>
+							<Text style={{fontSize: 30}}>Наши адреса</Text>
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.fieldsWrapper}>
+						<TouchableOpacity
+							style={styles.fields}
+							onPress={() => {
+								navigation.navigate("FeedBack")
+							}}
+						>
+							<Text style={{fontSize: 30}}>Связаться с нами</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 				<View>
-					<View style={{marginTop: "40%"}}>
+					<View style={{marginTop: "25%"}}>
 						<Button
 							onPress={() => {
 								signOut()
 							}}
 							lab
 							title="Выйти из аккаунта"
-							color="#FF0000"
 							style={{
 								marginHorizontal: "23%",
 								borderRadius: 17,
@@ -186,5 +147,17 @@ const styles = StyleSheet.create({
 		borderColor: "#e0e0e0",
 		paddingHorizontal: 20,
 		marginTop: 10,
+	},
+	fieldsWrapper: {
+		flexDirection: "row",
+		marginTop: "20%",
+		marginHorizontal: "10%",
+		backgroundColor: "#DCDCDC",
+		borderRadius: 10,
+	},
+	fields: {
+		padding: "2%",
+		width: "100%",
+		height: "100%",
 	},
 })
