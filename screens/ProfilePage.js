@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Button, Image } from 'react-native-elements';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import { Avatar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContex } from '../components/contex';
@@ -34,97 +34,113 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <View style={{ backgroundColor: '#fff', height: '100%' }}>
-      {isLoading ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <ActivityIndicator size="large" color="#00aa00"></ActivityIndicator>
-        </View>
-      ) : (
-        <View>
-          <View style={{ marginTop: 40 }}>
-            <View style={{ flexDirection: 'row', marginHorizontal: 10 }}>
-              <View style={{ marginLeft: 10 }}>
-                <Avatar
-                  size="large"
-                  rounded
-                  title={name[0]}
-                  titleStyle={{ color: '#000' }}
-                  onPress={() => console.log('Works!')}
-                  activeOpacity={0.7}
-                  avatarStyle={{
-                    borderColor: '#696969',
-                    borderWidth: 2,
-                  }}
-                />
-              </View>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    marginHorizontal: 20,
-                    marginTop: 10,
-                  }}>
-                  {name}
-                </Text>
-              </View>
-            </View>
-            <View>
-              <View style={styles.fieldsWrapper}>
-                <TouchableOpacity
-                  style={styles.fields}
-                  onPress={() => {
-                    navigation.navigate('Настройки', { user: user });
-                  }}>
-                  <Text style={{ fontSize: 30 }}>Настройки профиля</Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.fieldsWrapper}>
-                <TouchableOpacity
-                  style={styles.fields}
-                  onPress={() => {
-                    navigation.navigate('Адреса');
-                  }}>
-                  <Text style={{ fontSize: 30 }}>Наши адреса</Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.fieldsWrapper}>
-                <TouchableOpacity
-                  style={styles.fields}
-                  onPress={() => {
-                    navigation.navigate('FeedBack');
-                  }}>
-                  <Text style={{ fontSize: 30 }}>Связаться с нами</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View>
-              <View style={{ marginTop: '25%' }}>
-                <Button
-                  onPress={() => {
-                    signOut();
-                  }}
-                  lab
-                  title="Выйти из аккаунта"
-                  style={{
-                    marginHorizontal: '23%',
-                    borderRadius: 17,
-                    backgroundColor: '#00a86b',
-                    color: '#FF0000',
-                    textAlign: 'center',
-                    fontSize: 22,
-                  }}
-                />
-              </View>
-            </View>
+      <View style={{ marginTop: 30 }}>
+        <View style={{ flexDirection: 'row', marginHorizontal: 10 }}>
+          <View style={{ marginLeft: 10 }}>
+            <Avatar
+              size="large"
+              rounded
+              title={name[0]}
+              titleStyle={{ color: '#000' }}
+              onPress={() => console.log('Works!')}
+              activeOpacity={0.7}
+              avatarStyle={{
+                borderColor: '#00aa00',
+                borderWidth: 2,
+              }}
+            />
+          </View>
+          <View>
+            <Text
+              style={{
+                fontSize: 35,
+                marginHorizontal: 20,
+                marginTop: 10,
+              }}>
+              {name}
+            </Text>
           </View>
         </View>
-      )}
+
+        <View>
+          <Image
+            source={require('./../src/stick.jpg')}
+            style={{
+              marginHorizontal: 20,
+              marginTop: '15%',
+            }}></Image>
+
+          <View style={styles.fieldsWrapper}>
+            <TouchableOpacity
+              style={styles.fields}
+              onPress={() => {
+                navigation.navigate('Настройки', { user: user });
+              }}>
+              <View style={styles.punkt}>
+                <Ionicons name={'settings-outline'} size={32}></Ionicons>
+                <Text style={styles.textof}>Настройки профиля</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={require('./../src/stick.jpg')}
+            style={{
+              marginHorizontal: 20,
+            }}></Image>
+          <View style={styles.fieldsWrapper}>
+            <TouchableOpacity
+              style={styles.fields}
+              onPress={() => {
+                navigation.navigate('Адреса');
+              }}>
+              <View style={styles.punkt}>
+                <Ionicons name={'map-outline'} size={32}></Ionicons>
+                <Text style={styles.textof}>Наши адреса</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={require('./../src/stick.jpg')}
+            style={{
+              marginHorizontal: 20,
+            }}></Image>
+
+          <View style={styles.fieldsWrapper}>
+            <TouchableOpacity
+              style={styles.fields}
+              onPress={() => {
+                navigation.navigate('FeedBack');
+              }}>
+              <View style={styles.punkt}>
+                <Ionicons name={'mail-open-outline'} size={32}></Ionicons>
+                <Text style={styles.textof}>Связаться с нами</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={require('./../src/stick.jpg')}
+            style={{
+              marginHorizontal: 20,
+            }}></Image>
+          <View style={styles.fieldsWrapper}>
+            <TouchableOpacity
+              style={styles.fields}
+              onPress={() => {
+                signOut();
+              }}>
+              <View style={styles.punkt}>
+                <Ionicons name={'walk-outline'} size={32}></Ionicons>
+                <Text style={styles.textof}>Выход</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={require('./../src/stick.jpg')}
+            style={{
+              marginHorizontal: 20,
+            }}></Image>
+        </View>
+      </View>
     </View>
   );
 }
@@ -159,14 +175,21 @@ const styles = StyleSheet.create({
   },
   fieldsWrapper: {
     flexDirection: 'row',
-    marginTop: '20%',
-    marginHorizontal: '10%',
-    backgroundColor: '#DCDCDC',
-    borderRadius: 10,
   },
   fields: {
-    padding: '2%',
+    padding: '4%',
     width: '100%',
+
     height: '100%',
+  },
+  textof: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginLeft: 17,
+  },
+  punkt: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingLeft: 30,
   },
 });

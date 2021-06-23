@@ -14,9 +14,7 @@ import LoginPage from './screens/LoginPage';
 import { render } from 'react-dom';
 import LoginScreen from './screens/LoginPage';
 
-export default function App() {
-  AsyncStorage.setItem('test123', 'false');
-
+export default function App({ navigation }) {
   initialLoginState = {
     isLoading: true,
     userName: null,
@@ -59,7 +57,7 @@ export default function App() {
 
   const authContex = React.useMemo(
     () => ({
-      signIn: async (userName, password) => {
+      signIn: async (userName, password, setIsLoading) => {
         let userToken;
         userToken = null;
         fetch(`https://scanappbarcode.azurewebsites.net/CreateToken`, {
@@ -77,8 +75,7 @@ export default function App() {
               return res.json();
             } else {
               alert('Неправильный логин или пароль!');
-              //   AsyncStorage.setItem('test123', 'false');
-              //   return <LoginScreen />;
+              setIsLoading(false);
             }
           })
           .then((data) => {

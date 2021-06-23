@@ -8,6 +8,7 @@ import {
   Modal,
   Image,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import GoodsScreen from './GoodsPage';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -24,7 +25,7 @@ export default function ScanScreen({ route, navigation }) {
   const [modalVisible, setVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [relate, setRelate] = useState(false);
-  const [realateproduct, setRelateProduct] = useState();
+  const [realateproduct, setRelateProduct] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -34,7 +35,6 @@ export default function ScanScreen({ route, navigation }) {
   }, []);
 
   const change = () => {
-    setVisible(true);
     setRelate(false);
   };
   const clear = () => {
@@ -181,55 +181,72 @@ export default function ScanScreen({ route, navigation }) {
                   {product.description}
                 </Text>
               </View>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    marginLeft: 20,
-                    marginTop: 20,
-                    color: 'grey',
-                  }}>
-                  С этим берут:
-                </Text>
-              </View>
-              <View>
-                <ScrollView
-                  style={{
-                    marginTop: 10,
-                    marginHorizontal: 20,
-                  }}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}>
-                  {related.map((good) => {
-                    return (
-                      <TouchableOpacity
-                        onPress={() => {
-                          setVisible(false);
-                          setRelate(true);
-                          setRelateProduct(good);
-                        }}>
-                        <SmallGood image={good.image} price={good.price} />
-                      </TouchableOpacity>
-                    );
-                  })}
-                </ScrollView>
-              </View>
+              {Platform.OS !== 'ios' ? (
+                <View>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        marginLeft: 20,
+                        marginTop: 20,
+                        color: 'grey',
+                      }}>
+                      С этим берут:
+                    </Text>
+                  </View>
+                  <View>
+                    <ScrollView
+                      style={{
+                        marginTop: 10,
+                        marginHorizontal: 20,
+                      }}
+                      showsHorizontalScrollIndicator={false}
+                      horizontal={true}>
+                      {related.map((good) => {
+                        return (
+                          <TouchableOpacity
+                            onPress={() => {
+                              setRelate(true);
+                              setRelateProduct(good);
+                            }}>
+                            <SmallGood image={good.image} price={good.price} />
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </ScrollView>
+                  </View>
+                </View>
+              ) : (
+                <View></View>
+              )}
+
               <View style={{ height: 20 }}></View>
             </ScrollView>
             <TouchableOpacity
               onPress={() => {
                 let dat = product;
                 dat['quantity'] = quantity;
-                let dat1 = realateproduct;
-                dat1['quantity'] = 1;
-                navigation.navigate('Корзина', {
-                  screen: 'Корзина',
-                  params: {
-                    data1: dat1,
-                    data2: dat,
-                  },
-                }),
-                  setVisible(false);
+
+                if (Object.keys(realateproduct).length === 0) {
+                  navigation.navigate('Корзина', {
+                    screen: 'Корзина',
+                    params: {
+                      data2: dat,
+                    },
+                  });
+                } else {
+                  let dat1 = realateproduct;
+                  dat1['quantity'] = 1;
+                  navigation.navigate('Корзина', {
+                    screen: 'Корзина',
+                    params: {
+                      data1: dat1,
+                      data2: dat,
+                    },
+                  });
+                }
+
+                setVisible(false);
                 setQuantity(1);
               }}
               style={styles.addButton}>
@@ -246,25 +263,22 @@ export default function ScanScreen({ route, navigation }) {
           </View>
         </View>
       </Modal>
-      <View>
-        {relate ? (
-          <View>
-            <RelateScreen
-              nav={navigation}
-              change={() => {
-                change();
-              }}
-              clear={() => {
-                clear();
-              }}
-              product={realateproduct}
-              modalniy={true}
-            />
-          </View>
-        ) : (
-          <View></View>
-        )}
-      </View>
+      {relate ? (
+        <View>
+          <RelateScreen
+            nav={navigation}
+            change={() => {
+              change();
+            }}
+            clear={() => {
+              clear();
+            }}
+            product={realateproduct}
+          />
+        </View>
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 }

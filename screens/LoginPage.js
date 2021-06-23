@@ -23,16 +23,6 @@ export default function LoginScreen({ route, navigation }) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  React.useEffect(() => {
-    AsyncStorage.getItem('test123', (err, result) => {
-      if (result) {
-        let localObj = JSON.parse(result);
-        // alert(localObj);
-        setIsLoading(localObj);
-      }
-    });
-  }, [isLoading]);
-
   return (
     <View>
       {isLoading ? (
@@ -107,7 +97,7 @@ export default function LoginScreen({ route, navigation }) {
             }}>
             <Button
               onPress={() => {
-                signIn(inputLogin, inputPassword);
+                signIn(inputLogin, inputPassword, setIsLoading);
                 setIsLoading(true);
                 AsyncStorage.setItem('test123', 'true');
               }}
