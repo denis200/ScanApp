@@ -140,7 +140,7 @@ export default function GoodsScreen({route, navigation}) {
 			</View>
 			<Text
 				onPress={() => {
-					alert(JSON.stringify(goods) + JSON.stringify(goods.length))
+					navigation.navigate("Сканировать")
 				}}
 				style={styles.scanButton}
 			>
