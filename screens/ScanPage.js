@@ -9,6 +9,7 @@ import {
 	Image,
 	ActivityIndicator,
 	Platform,
+	Alert,
 } from "react-native"
 import GoodsScreen from "./GoodsPage"
 import {BarCodeScanner} from "expo-barcode-scanner"
@@ -52,7 +53,11 @@ export default function ScanScreen({route, navigation}) {
 			}),
 		})
 			.then(response => {
-				return response.json()
+				if (response.status == 200) {
+					return response.json()
+				} else {
+					Alert.alert("Ошибка", "Barcode не обнаружен")
+				}
 			})
 			.then(data => {
 				setProduct(data.product)
