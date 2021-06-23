@@ -50,6 +50,7 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
     }).then((response) => {
       if (response.status === 200) {
         setIsLoading(false);
+        navigation.goBack();
         alert('Успешно отправлено');
         setIsSend(true);
       } else {
@@ -144,7 +145,7 @@ export default function CommunicationWithDevelopersScreen({ navigation }) {
                     onPress={() => sendMessage()}
                     title="Отправить письмо"
                     disabled={
-                      Message.length < 6 || isEmailValid(Email) || TopicMessage.length < 6
+                      Message.length < 4 || isEmailValid(Email) || TopicMessage.length < 3
                         ? true
                         : IsSend
                         ? true

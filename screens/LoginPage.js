@@ -17,8 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContex } from '../components/contex';
 
 export default function LoginScreen({ route, navigation }) {
-  const [inputLogin, setInputLogin] = useState('Denis_Dimaa');
-  const [inputPassword, setinputPassword] = useState('Admin12345_');
+  const [inputLogin, setInputLogin] = useState('');
+  const [inputPassword, setinputPassword] = useState('');
   const { signIn } = React.useContext(AuthContex);
 
   const [isLoading, setIsLoading] = useState(false);

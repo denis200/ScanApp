@@ -15,6 +15,7 @@ export default function SettingScreen({ route, navigation }) {
   const [Email, setEmail] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
+  const [IsAccept, setIsAccept] = useState(false);
 
   React.useEffect(() => {
     if (route.params?.user) {
@@ -46,6 +47,7 @@ export default function SettingScreen({ route, navigation }) {
     }).then((response) => {
       alert(response.status === 200 ? 'Изменения применены' : 'Ошибка');
       setIsLoading(false);
+      setIsAccept(true);
       if (response.status === 200) {
         user.email = Email;
         user.phoneNumber = PhoneNumber.international;
@@ -81,6 +83,7 @@ export default function SettingScreen({ route, navigation }) {
                   setBirthDay={setBirthDay}
                   Email={Email}
                   setEmail={setEmail}
+                  setIsAccept={setIsAccept}
                 />
               </View>
               <View>
@@ -99,6 +102,8 @@ export default function SettingScreen({ route, navigation }) {
                     user.phoneNumber === PhoneNumber.international &&
                     user.dateBirth === BirthDay.dt &&
                     user.email === Email
+                      ? true
+                      : IsAccept
                       ? true
                       : false
                   }

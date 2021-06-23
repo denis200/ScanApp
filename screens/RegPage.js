@@ -190,7 +190,7 @@ export default function RegScreen({ navigation }) {
               }}
               disabled={
                 inputPassword1 !== inputPassword2 ||
-                inputName.length < 6 ||
+                inputName.length < 2 ||
                 inputPassword1.length < 1
               }
               buttonStyle={styles.buttonReg}
