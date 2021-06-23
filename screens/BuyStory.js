@@ -95,7 +95,7 @@ export default function StoryScreen({ route, navigation }) {
           })
           .then((data) => {
             if (data !== undefined) {
-              setHistory(data);
+              setHistory(data.reverse());
               setIsLoading(false);
               setRefreshing(false);
             } else {
